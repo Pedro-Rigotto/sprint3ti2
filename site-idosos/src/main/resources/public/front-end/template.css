@@ -1,0 +1,104 @@
+
+header{
+    background-color: rgb(133, 26, 133);
+    height: 80px;
+}
+.imagemprovisoria{
+  margin-top: 5px;
+  margin-left: 6%;
+  width: 70px;
+  height: 75px !important;
+}
+.cabecalho p{
+  color:white;
+}
+.cabecalho p a{
+  color:white;
+}
+
+.nomeUsuario p{
+  padding-top: 22px;
+  padding-right: 20px;
+  text-align: right !important;
+}
+
+#insertSair p{
+  padding-top: 22px;
+  padding-right: 20px;
+  text-align: right !important;
+}
+
+
+
+body {
+    background: #e0e5ec;
+}
+p {
+  color: #676767;
+}
+.frame {
+  width: 90%;
+  margin: 40px auto;
+}
+button {
+  outline: none;
+}
+.custom-btn {
+  padding: 10px 25px;
+  border: 2px solid #000;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  border-radius: 15px;
+}
+/* 13 */
+.btn-13 {
+  background: rgb(133, 26, 133);
+  color: #fff;
+  z-index: 1;
+}
+.btn-13:after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: #e0e5ec;
+  transition: all 0.3s ease;
+  border-radius: 15px;
+}
+.btn-13:hover {
+  color: #000;
+}
+.btn-13:hover:after {
+  top: 0;
+  height: 100%;
+}
+.btn-13:active {
+  top: 2px;
+}  
+.divcontato
+{
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+a.Contato{
+
+  bottom:0;
+  width:100%;
+  height:8%;
+  font-size: 160%;  
+  color: black;
+  text-align: center;
+  margin-top: 1%;
+  
+    text-decoration: underline;
+  }

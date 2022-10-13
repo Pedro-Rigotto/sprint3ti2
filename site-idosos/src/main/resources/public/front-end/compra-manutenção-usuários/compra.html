@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VemkFilho - Criar conta</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/front-end/compra-manutenção-usuários/style.css">
+    <link rel="stylesheet" href="/front-end/template.css">
+    <!--/src/main/resources/public/front-end/compra-manutenção-usuários/style.css--
+        src/main/resources/public/front-end/template.css-->
+</head>
+
+<body onload="init()">
+    <header>
+        <div class="container-fluid cabecalho">
+            <div class="row">
+                <div class="col-6">
+                    <a href="/front-end/inicio-login/inicio.html"> <img class="imagemprovisoria" src="/imagens/logo.png" alt=""> <button type="button" class="btn btn-info">Voltar para a página inicial</button></a>
+                    
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--<h1>Compra e Cadastro de Usuários (CRUD)</h1>-->
+
+    <div class="container">
+        <div class="row">
+            <div id="msg" class="col-sm-10 offset-sm-1 ">
+                <div display="none" id="mensagemDeAviso"></div>
+                <!--<div class="alert alert-warning">Contato não encontrado.</div>-->
+            </div>
+        </div>
+        <div class="row" id="titulo">
+            <h1>Insira as suas informações para criar sua conta:</h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" id="formulario">
+                <form id="form-compra" action="/criarusuario/insert" method="post" autocomplete="off">
+                    <div class="row">
+                        <div class="col-12 col-md-3"></div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label for="inputNome">Nome: (*)</label>
+                                    <input type="text" class="form-control" id="inputNome" required
+                                        name="nome" placeholder="Seu nome">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label for="inputEmail">E-mail: (*)</label>
+                                    <input type="email" class="form-control" id="inputEmail" required
+                                        name="email" placeholder="Seu e-mail">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label for="inputEmail">Nome de usuário: (*)</label>
+                                    <input type="text" class="form-control" id="inputUsuario" required
+                                        name="username" placeholder="Seu e-mail">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label for="inputTelefone">Telefone:</label>
+                                    <input type="text" class="form-control" id="inputTelefone"
+                                        name="telefone" placeholder="Seu telefone">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label for="inputSenha">Senha: (*)</label>
+                                    <input type="password" class="form-control" id="inputSenha" required
+                                        name="password" placeholder="Senha">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label for="inputConfSenha">Confirmar senha: (*)</label>
+                                    <input type="password" class="form-control" id="inputConfSenha" required
+                                        placeholder="Confirme a sua senha">
+                                </div>
+                            </div>
+
+                            <div class="form-group row" style="display:none">
+                                <div class="col-sm-12">
+                                    <input type="hidden" class="form-control" id="inputTipoUsuario" required
+                                        name="tipo_usuario" value="0">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <small>(*) Campos obrigatórios</small>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12" id="divBotaoPagar" style="text-align: center">
+                                    <input type="submit" class="btn btn-13" id="btnInsert"
+                                        value="Criar conta">
+                                    <!--
+                                    <input type="button" class="btn btn-secondary" id="btnUpdate" value="Alterar">
+                                    <input type="button" class="btn btn-secondary" id="btnDelete" value="Excluir">
+                                    -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-3"></div>
+                        </div>
+                    </div>
+                    <div class="row" id="textoDica" style="text-align: center;">
+                        <h2>*Dica: sempre anote seus dados de login em um papel ou caderno.*</h2>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row" id="divBotaoDificuldades">
+            <div class="col-sm-12">
+                <a href="/front-end/tutorial/index.html?id=9"><input type="button" class="btn btn-13 custom-btn btn-lg" id="btnDificuldades"
+                        value="Estou com Dificuldades"></a>
+            </div>
+        </div>
+
+        <div class="row" id="rodape">
+            <div class="col-sm-12">
+                <a href="/front-end/EntreEmContato/contato.html"><h2>Entre em Contato</h2></a>
+            </div>
+        </div>
+
+        <!--
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="grid-usuarios" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">nome</th>
+                            <th scope="col">email</th>
+                            <th scope="col">telefone</th>
+                            <th scope="col">senha</th>
+                            <th scope="col">endereco</th>
+                            <th scope="col">numend</th>
+                            <th scope="col">compend</th>
+                            <th scope="col">cidade</th>
+                            <th scope="col">estado</th>
+                            <th scope="col">cep</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-usuarios">
+                        <tr>
+                            <td scope="row">1</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        -->
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/front-end/compra-manutenção-usuários/app.js"></script>
+    <script>
+        function exibeUsuarios() {
+            // Remove todas as linhas do corpo da tabela
+            $("#table-usuarios").html("");
+
+            // Popula a tabela com os registros do banco de dados
+            for (i = 0; i < db.data.length; i++) {
+                let usu = db.data[i];
+                $("#table-usuarios").append(`<tr>
+                                                <td scope="row">${usu.nome}</td>
+                                                <td>${usu.email}</td>
+                                                <td>${usu.telefone}</td>
+                                                <td>${usu.senha}</td>
+                                                <td>${usu.endereco}</td>
+                                                <td>${usu.numend}</td>
+                                                <td>${usu.compend}</td>
+                                                <td>${usu.cidade}</td>
+                                                <td>${usu.estado}</td>
+                                                <td>${usu.cep}</td>
+                                            </tr>`);
+            }
+        }
+
+        function init() {
+            // Adiciona funções para tratar os eventos 
+            $("#btnInsert").click(function () {
+                // Verfica se o formulário está preenchido corretamente
+                if (!$('#form-compra')[0].checkValidity()) {
+                    displayMessage("Preencha o formulário corretamente.");
+                    return;
+                }
+
+                // Obtem os valores dos campos do formulário
+                let camponome = $("#inputNome").val();
+                let campoemail = $("#inputEmail").val();
+                let campotelefone = $("#inputTelefone").val();
+                let camposenha = $("#inputSenha").val();
+                let camposenhaconf = $("#inputConfSenha").val();
+                let campoendereco = $("#inputEndereco").val();
+                let camponumend = $("#inputNumero").val();
+                let campocompend = $("#inputComp").val();
+                let campocidade = $("#inputCidade").val();
+                let campoestado = $("#inputEstado").val();
+                let campocep = $("#inputCEP").val();
+
+                let usu = {
+                    nome: camponome,
+                    email: campoemail,
+                    telefone: campotelefone,
+                    senha: camposenha,
+                    endereco: campoendereco,
+                    numend: camponumend,
+                    compend: campocompend,
+                    cidade: campocidade,
+                    estado: campoestado,
+                    cep: campocep
+                };
+                
+                if (camposenha != camposenhaconf) {
+                    displayMessage("A confirmação da senha está errada.");
+                    return;
+                }
+
+                //insertUsuario(usu);
+
+                // Reexibe os administradores
+                exibeUsuarios();
+
+                // Limpa o formulario
+                //$("#form-compra")[0].reset();
+            });
+
+            // Intercepta o click do botão Alterar
+            $("#btnUpdate").click(function () {
+                // Obtem os valores dos campos do formulário
+                let campoemail = $("#inputEmail").val();
+                if (campoemail == "") {
+                    displayMessage("Selecione um usuário para ser alterado.");
+                    return;
+                }
+                let camponome = $("#inputNome").val();
+                let campotelefone = $("#inputTelefone").val();
+                let camposenha = $("#inputSenha").val();
+                let camposenhaconf = $("#inputConfSenha").val();
+                let campoendereco = $("#inputEndereco").val();
+                let camponumend = $("#inputNumero").val();
+                let campocompend = $("#inputComp").val();
+                let campocidade = $("#inputCidade").val();
+                let campoestado = $("#inputEstado").val();
+                let campocep = $("#inputCEP").val();
+                let campoSenha = $("#inputSenha").val();
+                
+                let usu = {
+                    nome: camponome,
+                    email: campoemail,
+                    telefone: campotelefone,
+                    senha: camposenha,
+                    endereco: campoendereco,
+                    numend: camponumend,
+                    compend: campocompend,
+                    cidade: campocidade,
+                    estado: campoestado,
+                    cep: campocep
+                };
+
+                updateUsuario(campoemail, usu);
+
+                // Reexibe os usuários
+                exibeUsuarios();
+
+                // Limpa o formulario
+                $("#form-compra")[0].reset();
+            });
+
+            // Intercepta o click do botão Excluir
+            $("#btnDelete").click(function () {
+                let campoemail = $("#inputEmail").val();
+                if (campoemail == "") {
+                    displayMessage("Selecione um usuário para ser excluído.");
+                    return;
+                }
+                deleteUsuario(campoemail);
+
+                // Reexibe os usuários
+                exibeUsuarios();
+
+                // Limpa o formulario
+                $("#form-compra")[0].reset();
+            });
+
+            // Intercepta o click do botão Listar Contatos
+            $("#btnClear").click(function () {
+                $("#form-compra")[0].reset();
+            });
+
+            // Oculta a mensagem de aviso após alguns segundos
+            $('#msg').bind("DOMSubtreeModified", function () {
+                window.setTimeout(function () {
+                    $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                        $(this).remove();
+                    });
+                }, 5000);
+            });
+
+            // Preenche o formulário quando o usuario clicar em uma linha da tabela 
+            $("#grid-usuarios").on("click", "tr", function (e) {
+                let linhaAdmin = this;
+                colunas = linhaAdmin.querySelectorAll("td");
+
+                $("#inputNome").val(colunas[0].innerText);
+                $("#inputEmail").val(colunas[1].innerText);
+                $("#inputTelefone").val(colunas[2].innerText);
+                $("#inputSenha").val(colunas[3].innerText);
+                $("#inputEndereco").val(colunas[4].innerText);
+                $("#inputNumero").val(colunas[5].innerText);
+                $("#inputComp").val(colunas[6].innerText);
+                $("#inputCidade").val(colunas[7].innerText);
+                $("#inputEstado").val(colunas[8].innerText);
+                $("#inputCEP").val(colunas[9].innerText);
+            });
+
+            exibeUsuarios();
+        }
+    </script>
+</body>
+
+</html>

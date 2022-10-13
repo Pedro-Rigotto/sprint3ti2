@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>TutoriTec - Tutorial</title>
+        <!-- CSS only -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="/src/main/resources/front-end/template.css" />
+    </head>
+
+    <body onload="init()">
+        <header>
+            <div class="container-fluid cabecalho">
+                <div class="row">
+                    <div class="col-6">
+                        <a href="/src/main/resources/front-end/inicio-login/inicio.html">
+                            <img
+                                class="imagemprovisoria"
+                                src="/src/main/resources/imagens/logo.png"
+                                alt=""
+                            /> <button type="button" class="btn btn-info">Voltar para a página inicial</button>
+                        </a>
+                    </div>
+
+                    <div class="col-6" id="nomeUsuario">
+                        <div id="insertSair">
+        
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <button onclick="goBack()" class="custom-btn btn-13" id="botaoVoltar" >Voltar</button>
+            <div class="container" id="telaTutorial">
+                <!-- Código inserido via JavaScript -->
+            </div>
+            <div id="acontato">
+                <a class="Contato" href="/src/main/resources/front-end/EntreEmContato/contato.html">Entre em contato</a>
+            </div>
+            <div class="container" id="comentarios">
+                <div class="row">
+                    <div class="col-12">
+                        <br><!--<h4>Comentários</h4>-->
+                        <table class="table table-striped" style="text-align:justify">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Comentário</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">João da Silva</th>
+                                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam odio voluptate cumque eum repellat et nihil eius obcaecati corporis eos.</td>
+                                    <td><a href="addcomentario.html">Editar</a> <a href="#">Deletar</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Maria dos Santos</th>
+                                    <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio saepe quasi veritatis non earum excepturi molestias, nesciunt ratione vitae nihil atque. Veritatis tempora nulla enim corporis ipsa ab reiciendis magni.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a href="addcomentario.html"><button type="button" class="btn-13 custom-btn" id="btnAddCom">Adicionar comentário</button></a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="container"></footer>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>

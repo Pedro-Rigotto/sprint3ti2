@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TutoriTec - Página de Administração</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/src/main/resources/front-end/template.css">
+</head>
+
+<body onload="init()">
+    <!--<h1>Cadastro de Contatos (CRUD)</h1>-->
+
+    <header>
+        <div class="container-fluid cabecalho">
+            <div class="row">
+                <div class="col-6">
+                    <a href="/src/main/resources/front-end/inicio-login/inicio.html"> <img class="imagemprovisoria" src="/src/main/resources/imagens/logo.png" alt=""> </a>
+                </div>
+
+                    <div class="col-6" id="nomeUsuario">
+                        <div id="insertSair">
+                            
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div id="msg" class="col-sm-10 offset-sm-1 ">
+                <!--<div class="alert alert-warning">Contato não encontrado.</div>-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <form id="form-adm" autocomplete="off">
+                    <div class="form-group row">
+                        <div class="col-sm-11">
+                            <label for="inputUsuario">Usuário (*)</label>
+                            <input type="text" class="form-control" id="inputUsuario" required
+                                placeholder="Informe o nome de usuário">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-11">
+                            <label for="inputNome">Nome (*)</label>
+                            <input type="text" class="form-control" id="inputNome" required
+                                placeholder="Informe o nome">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-11">
+                            <label for="inputEmail">E-mail (*)</label>
+                            <input type="text" class="form-control" id="inputEmail" required
+                                placeholder="Informe o e-mail">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-11">
+                            <label for="inputSenha">Senha (*)</label>
+                            <input type="text" class="form-control" id="inputSenha" required placeholder="Senha">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-11">
+                            <label for="inputTelefone">Telefone</label>
+                            <input type="text" class="form-control" id="inputTelefone" 
+                                placeholder="Informe o telefone">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-11">
+                            <small>(*) Campos obrigatórios</small>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-11">
+                            <input type="button" class="btn btn-13" id="btnInsert" value="Criar">
+                            <input type="button" class="btn btn-13" id="btnUpdate" value="Alterar">
+                            <input type="button" class="btn btn-13" id="btnDelete" value="Excluir">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-5" id="botoesEscolhas">
+                <a href="/src/main/resources/front-end/manutenção-categorias/index.html"><input type="button" class="btn btn-13" id="btnGerenciarCategorias" value="Gerenciar categorias"></a>
+                <a href="/src/main/resources/front-end/cadastro-tutorial/index.html"><input type="button" class="btn btn-13" id="btnCriarTutorial" value="Criar tutorial"></a>
+                <a href="/src/main/resources/front-end/compra-manutenção-usuários/gerenciarusuario.html"><input type="button" class="btn btn-13" id="btnGerenciarUsuario" value="Gerenciar usuários"></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="grid-admins" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Usuário</th>
+                            <th scope="col">Senha</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Telefone</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-admins">
+                        <tr>
+                            <td scope="row">1</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function exibeAdmins() {
+            // Remove todas as linhas do corpo da tabela
+            $("#table-admins").html("");
+
+            // Popula a tabela com os registros do banco de dados
+            for (i = 0; i < db.data.length; i++) {
+                let admin = db.data[i];
+                $("#table-admins").append(`<tr><td scope="row">${admin.usuario}</td>
+                                                <td>${admin.senha}</td>
+                                                <td>${admin.nome}</td>
+                                                <td>${admin.email}</td>
+                                                <td>${admin.telefone}</td>
+                                            </tr>`);
+            }
+        }
+
+        function init() {
+            // Adiciona funções para tratar os eventos 
+            $("#btnInsert").click(function () {
+                // Verfica se o formulário está preenchido corretamente
+                if (!$('#form-adm')[0].checkValidity()) {
+                    displayMessage("Preencha o formulário corretamente.");
+                    return;
+                }
+
+                // Obtem os valores dos campos do formulário
+                let campoUsuario = $("#inputUsuario").val();
+                let campoSenha = $("#inputSenha").val();
+                let admin = {
+                    usuario: campoUsuario,
+                    senha: campoSenha
+                };
+
+                insertAdmin(admin);
+
+                // Reexibe os administradores
+                exibeAdmins();
+
+                // Limpa o formulario
+                $("#form-adm")[0].reset();
+            });
+
+            // Intercepta o click do botão Alterar
+            $("#btnUpdate").click(function () {
+                // Obtem os valores dos campos do formulário
+                let campoUsuario = $("#inputUsuario").val();
+                if (campoUsuario == "") {
+                    displayMessage("Selecione um usuário para ser alterado.");
+                    return;
+                }
+                let campoSenha = $("#inputSenha").val();
+                let admin = {
+                    usuario: campoUsuario,
+                    senha: campoSenha
+                };
+
+                updateAdmin(campoUsuario, admin);
+
+                // Reexibe os usuários
+                exibeAdmins();
+
+                // Limpa o formulario
+                $("#form-adm")[0].reset();
+            });
+
+            // Intercepta o click do botão Excluir
+            $("#btnDelete").click(function () {
+                let campoUsuario = $("#inputUsuario").val();
+                if (campoUsuario == "") {
+                    displayMessage("Selecione um usuário a ser excluído.");
+                    return;
+                }
+                deleteAdmin(campoUsuario);
+
+                // Reexibe os usuários
+                exibeAdmins();
+
+                // Limpa o formulario
+                $("#form-adm")[0].reset();
+            });
+
+            // Intercepta o click do botão Listar Contatos
+            $("#btnClear").click(function () {
+                $("#form-adm")[0].reset();
+            });
+
+            // Oculta a mensagem de aviso após alguns segundos
+            $('#msg').bind("DOMSubtreeModified", function () {
+                window.setTimeout(function () {
+                    $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                        $(this).remove();
+                    });
+                }, 5000);
+            });
+
+            // Preenche o formulário quando o usuario clicar em uma linha da tabela 
+            $("#grid-admins").on("click", "tr", function (e) {
+                let linhaAdmin = this;
+                colunas = linhaAdmin.querySelectorAll("td");
+
+                $("#inputUsuario").val(colunas[0].innerText);
+                $("#inputSenha").val(colunas[1].innerText);
+                $("#inputNome").val(colunas[2].innerText);
+                $("#inputEmail").val(colunas[3].innerText);
+                $("#inputTelefone").val(colunas[4].innerText);
+            });
+
+            exibeAdmins();
+        }
+    </script>
+</body>
+
+</html>

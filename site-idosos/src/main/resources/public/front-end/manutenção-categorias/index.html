@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VemkFilho - Manutenção de categorias</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/front-end/manutenção-categorias/style.css">
+    <link rel="stylesheet" href="/front-end/template.css">
+</head>
+
+<body onload="init()">
+    <header>
+        <div class="container-fluid cabecalho">
+            <div class="row">
+                <div class="col-6">
+                    <a href="/src/main/resources/front-end/inicio-login/inicio.html"> <img class="imagemprovisoria" src="/imagens/logo.png" alt=""> </a>
+                </div>
+
+                <div class="col-6" id="nomeUsuario">
+                    <div id="insertSair">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div id="msg" class="col-sm-4 offset-sm-1 ">
+                <!--<div class="alert alert-warning">Categoria não encontrado.</div>-->
+            </div>
+        </div>
+        <div class="row">
+            <FORMULARIO>
+
+
+            <div class="col-sm-12">
+                <table id="grid-categorias" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-categorias">
+                        <TABELA>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/front-end/manutenção-categorias/app.js"></script>
+    <script>
+        /*function exibeCategorias() {
+            // Remove todas as linhas do corpo da tabela
+            $("#table-categorias").html("");
+            // Popula a tabela com os registros do banco de dados
+            for (i = 0; i < db.categorias.length; i++) {
+                let categoria = db.categorias[i];
+                $("#table-categorias").append(`<tr><td scope="row">${categoria.id}</td>
+                                                <td>${categoria.nome}</td>
+                                            </tr>`);
+            }
+        }*/
+
+        function init() {
+         // Adiciona funções para tratar os eventos 
+            $("#btnInsert").click(function () {
+             // Verfica se o formulário está preenchido corretamente
+                if (!$('#form-categoria')[0].checkValidity()) {
+                    displayMessage("Preencha o formulário corretamente.");
+                    return;
+                }
+              
+                // Obtem os valores dos campos do formulário
+                let campoNome = $("#inputNome").val();
+                let categoria = {
+                    nome: campoNome
+                };
+
+                insertCategoria(categoria);
+
+                // Reexibe os categorias
+                exibeCategorias();
+
+                // Limpa o formulario
+                $("#form-categoria")[0].reset();
+            });
+
+            // Intercepta o click do botão Alterar
+            $("#btnUpdate").click(function () {
+                // Obtem os valores dos campos do formulário
+                let campoId = $("#inputId").val();
+                if (campoId == "") {
+                    displayMessage("Selecione uma categoria para ser alterada.");
+                    return;
+                }
+                let campoName = $("#inputNome").val();
+                let categoria = {
+                    nome: campoName
+
+                };
+
+                updateCategoria(parseInt(campoId), categoria);
+
+                // Reexibe os categorias
+                exibeCategorias();
+
+                // Limpa o formulario
+                $("#form-categoria")[0].reset();
+            });
+
+            // Intercepta o click do botão Excluir
+            $("#btnDelete").click(function () {
+                let campoId = $("#inputId").val();
+                if (campoId == "") {
+                    displayMessage("Selecione uma categoria a ser excluída.");
+                    return;
+                }
+              
+                deleteCategoria(parseInt(campoId));
+
+                // Reexibe os categorias
+                exibeCategorias();
+
+                // Limpa o formulario
+                $("#form-categoria")[0].reset();
+            });
+
+            // Intercepta o click do botão Listar Categorias
+            $("#btnClear").click(function () {
+                $("#form-categoria")[0].reset();
+            });
+
+            // Oculta a mensagem de aviso após alguns segundos
+            $('#msg').bind("DOMSubtreeModified", function () {
+                window.setTimeout(function () {
+                    $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                        $(this).remove();
+                    });
+                }, 5000);
+            });
+
+            // Preenche o formulário quando o usuario clicar em uma linha da tabela 
+            $("#grid-categorias").on("click", "tr", function (e) {
+                let linhaCategoria = this;
+                colunas = linhaCategoria.querySelectorAll("td");
+              
+                $("#inputId").val(colunas[0].innerText);
+                $("#inputNome").val(colunas[1].innerText);
+                $("#inputTipo").val(colunas[2].innerText);
+
+            });
+
+            exibeCategorias();
+        }
+
+    </script>
+</body>
+
+</html>

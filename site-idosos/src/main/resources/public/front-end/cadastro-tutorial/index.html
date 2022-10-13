@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VemkFilho - Cadastro de tutorial</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/front-end/cadastro-tutorial/stylle.css">
+    <link rel="stylesheet" href="/front-end/template.css">
+</head>
+
+<body onload="init()">
+    <header>
+        <div class="container-fluid cabecalho">
+            <div class="row">
+                <div class="col-6">
+                    <a href="/src/main/resources/front-end/inicio-login/inicio.html"> <img class="imagemprovisoria" src="/imagens/logo.png" alt=""> </a>
+                </div>
+
+                <div class="col-6" id="nomeUsuario">
+                    <div id="insertSair">
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    
+
+    <div class="container">
+        <div class="row">
+            <div id="msg" class="col-sm-10 offset-sm-1 ">
+                <!--<div class="alert alert-warning">Contato não encontrado.</div>-->
+            </div>
+        </div>
+        <FORMULARIO>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="grid-contatos" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Título</th>
+                            <th scope="col">URL do vídeo</th>
+                            <th scope="col">Autor</th>
+                            <th scope="col">Data de criação</th>
+                            <th scope="col">Publicado</th>
+                            <th scope="col">Texto do tutorial</th>
+                            <th scope="col">Categoria</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-contatos">
+                        <TABELA>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/front-end/cadastro-tutorial/app.js"></script>
+    <script>
+        
+
+        function exibeContatos() {
+            // Remove todas as linhas do corpo da tabela
+            $("#table-contatos").html("");
+
+            // Popula a tabela com os registros do banco de dados
+            for (i = 0; i < db.data.length; i++) {
+                let contato = db.data[i];    
+                $("#table-contatos").append(`<tr><td scope="row">${contato.id}</td>
+                                                <td>${contato.titulo}</td>
+                                                <td>${contato.url}</td>
+                                                <td>${contato.tutorial}</td>
+                                                <td>${contato.categoria}</td>
+                                            </tr>`);
+            }
+        }
+
+        function init() {
+
+            //insertDropdown()
+            
+            // Adiciona funções para tratar os eventos 
+            $("#btnInsert").click(function () {
+                // Verfica se o formulário está preenchido corretamente
+                if (!$('#form-contato')[0].checkValidity()) {
+                    displayMessage("Preencha o formulário corretamente.");
+                    return;
+                }
+
+                // Obtem os valores dos campos do formulário
+                let campoTitulo = $("#inputTitulo").val();
+                let campoUrl = $('#inputURL').val();
+                let campoTutorial = $("#inputTutorial").val();
+                let campoCategoria = $('#inputCategoria').val();
+                let contato = { titulo: campoTitulo, 
+                    url: campoUrl, 
+                    tutorial: campoTutorial, 
+                    categoria: campoCategoria };
+
+                insertContato(contato);
+
+                
+
+                // Reexibe os contatos
+                //exibeContatos();
+
+                // Limpa o formulario
+                $("#form-contato")[0].reset();
+            });
+
+            // Intercepta o click do botão Alterar
+            $("#btnUpdate").click(function () {
+                // Obtem os valores dos campos do formulário
+                let campoId = $("#inputId").val();
+                if (campoId == "") {
+                    displayMessage("Selecione um tutorial para ser alterado.");
+                    return;
+                }
+                let campoTitulo = $("#inputTitulo").val();
+                let campoUrl = $("#inputURL").val();
+                let campoTutorial = $("#inputTutorial").val();
+                let campoCategoria = $('#inputCategoria').val();
+                let contato = {titulo: campoTitulo, 
+                    url: campoUrl, 
+                    tutorial: campoTutorial, 
+                    categoria: campoCategoria };
+
+                updateContato(parseInt(campoId), contato);
+
+                // Reexibe os contatos
+                //exibeContatos();
+
+                // Limpa o formulario
+                $("#form-contato")[0].reset();
+            });
+
+            // Intercepta o click do botão Excluir
+            $("#btnDelete").click(function () {
+                let campoId = $("#inputId").val();
+                if (campoId == "") {
+                    displayMessage("Selecione um tutorial a ser excluído.");
+                    return;
+                }
+                deleteContato(parseInt(campoId));
+
+                // Reexibe os contatos
+                //exibeContatos();
+
+                // Limpa o formulario
+                $("#form-contato")[0].reset();
+            });
+
+            // Intercepta o click do botão Listar Contatos
+            $("#btnClear").click(function () {
+                $("#form-contato")[0].reset();
+            });
+
+            // Oculta a mensagem de aviso após alguns segundos
+            $('#msg').bind("DOMSubtreeModified", function () {
+                window.setTimeout(function () {
+                    $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                        $(this).remove();
+                    });
+                }, 5000);
+            });
+
+            // Preenche o formulário quando o usuario clicar em uma linha da tabela 
+            $("#grid-contatos").on("click", "tr", function (e) {
+                let linhaContato = this;
+                colunas = linhaContato.querySelectorAll("td");
+
+                $("#inputId").val(colunas[0].innerText);
+                $("#inputTitulo").val(colunas[1].innerText);
+                $("#inputURL").val(colunas[2].innerText);
+                $("#inputTutorial").val(colunas[3].innerText);
+                $("#inputCategoria").val(colunas[4].innerText);
+            });
+
+            //exibeContatos();
+
+            
+        }
+    </script>
+</body>
+
+</html>
+

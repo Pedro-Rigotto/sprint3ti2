@@ -1,0 +1,20 @@
+.container {
+    text-align: center;
+}
+
+#btn-area button {
+    margin-bottom: 20px;
+     height: 100px;
+    font-size: x-large !important; 
+
+}
+
+#title {
+    margin: 20px;
+}
+
+#btn-voltar{
+    float: left;
+    height: 30px;
+    font-size: medium;
+}

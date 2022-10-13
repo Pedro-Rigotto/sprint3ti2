@@ -1,0 +1,72 @@
+label {
+    font-weight: bolder;
+}
+::placeholder {
+    color: lightskyblue !important;
+    opacity: 3;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:  lightskyblue !important;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:  lightskyblue !important;
+    opacity:  3;
+ }
+ h1 {
+     text-align: center;
+     margin-top: 25px;
+     margin-bottom: 25px;
+ }
+ #msg {
+     height: 60px;
+     position:fixed;
+     margin: 10px auto;
+     z-index: 10;
+ }
+ #grid-contatos tbody {
+     cursor: pointer;
+ }
+
+ #botoesEscolhas {
+     display: flex;
+     align-items: center;
+     flex-direction: column;
+     justify-content: space-evenly;
+     min-height: 200px;
+ }
+
+ #divBotaoPagar {
+     text-align: right;
+ }
+
+ #textoDica {
+     text-align: center;
+ }
+
+ #rodape {
+    margin-bottom: 50px;
+ }
+
+ #rodape a {
+     color: black;
+     text-decoration: underline;
+     text-align: center;
+ }
+
+ #divBotaoDificuldades {
+     margin-top: 50px;
+     margin-bottom: 50px;
+     text-align: center;
+ }
+
+ #btnDificuldades {
+     height: 100px;
+     width: 350px;
+     font-size: 1.6rem;
+ }
+
+ @media screen and (min-width: 992px) {
+     #formulario {
+         padding: 0px 130px;
+     }
+ }

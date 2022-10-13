@@ -1,0 +1,29 @@
+label {
+    font-weight: bolder;
+}
+
+::placeholder {
+    color: lightskyblue !important;
+    opacity: 3;
+    font-size: small;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:  lightskyblue !important;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:  lightskyblue !important;
+    opacity:  3;
+ }
+ h3 {
+     text-align: center;
+     min-width: 330px;
+ }
+ #msg {
+     height: 60px;
+ }
+ #grid-contatos tbody {
+     cursor: pointer;
+ }
+.form-select{
+  margin-top: 10px;
+}

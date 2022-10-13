@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>VemkFilho - Gerenciar usuário</title>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        />
+        <link rel="stylesheet" href="/front-end/compra-manutenção-usuários/style.css" />
+        <link rel="stylesheet" href="/front-end/template.css" />
+    </head>
+
+    <body onload="init()">
+        <!--<h1>Compra e Cadastro de Usuários (CRUD)</h1>-->
+        <header>
+            <div class="container-fluid cabecalho">
+                <div class="row">
+                    <div class="col-6">
+                        <a href="/src/main/resources/front-end/inicio-login/inicio.html">
+                            <img
+                                class="imagemprovisoria"
+                                src="/imagens/logo.png"
+                                alt=""
+                            />
+                        </a>
+                    </div>
+
+                    <div class="col-6" id="nomeUsuario">
+                        <div id="insertSair"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div id="msg" class="col-sm-10 offset-sm-1">
+                    <!--<div class="alert alert-warning">Contato não encontrado.</div>-->
+                </div>
+            </div>
+            <div class="row" id="titulo">
+                <div class="col">
+                    <h1><TITULO></h1>
+                </div>
+            </div>
+            <div class="row">
+                <FORMULARIO>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="grid-usuarios" class="table table-striped">
+
+                        <thead>
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">nome</th>
+                                <th scope="col">email</th>
+                                <th scope="col">usuário</th>
+                                <th scope="col">senha</th>
+                                <th scope="col">telefone</th>
+                                <th scope="col">tipo</th>
+                            </tr>
+                        </thead>
+                        <TABELA>
+                        <!--
+                        <tbody id="table-usuarios">
+                            <tr>
+                                <td scope="row">1</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                        -->
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="/front-end/compra-manutenção-usuários/app.js"></script>
+        <script>
+            function exibeUsuarios() {
+                // Remove todas as linhas do corpo da tabela
+                $("#table-usuarios").html("");
+
+                // Popula a tabela com os registros do banco de dados
+                for (i = 0; i < db.data.length; i++) {
+                    let usu = db.data[i];
+                    $("#table-usuarios").append(`<tr>
+                                                <td scope="row">${usu.id}</td>
+                                                <td>${usu.nome}</td>
+                                                <td>${usu.email}</td>
+                                                <td>${usu.usuario}</td>
+                                                <td>${usu.senha}</td>
+                                                <td>${usu.telefone}</td>
+                                                <td>${usu.tipo}</td>
+                                            </tr>`);
+                }
+            }
+
+            function init() {
+                // Adiciona funções para tratar os eventos
+                $("#btnInsert").click(function () {
+                    // Verfica se o formulário está preenchido corretamente
+                    if (!$("#form-compra")[0].checkValidity()) {
+                        displayMessage("Preencha o formulário corretamente.");
+                        return;
+                    }
+
+                    // Obtem os valores dos campos do formulário
+                    let camponome = $("#inputNome").val();
+                    let campoemail = $("#inputEmail").val();
+                    let campotelefone = $("#inputTelefone").val();
+                    let camposenha = $("#inputSenha").val();
+                    let camposenhaconf = $("#inputConfSenha").val();
+                    let campoendereco = $("#inputEndereco").val();
+                    let camponumend = $("#inputNumero").val();
+                    let campocompend = $("#inputComp").val();
+                    let campocidade = $("#inputCidade").val();
+                    let campoestado = $("#inputEstado").val();
+                    let campocep = $("#inputCEP").val();
+
+                    let usu = {
+                        nome: camponome,
+                        email: campoemail,
+                        telefone: campotelefone,
+                        senha: camposenha,
+                        endereco: campoendereco,
+                        numend: camponumend,
+                        compend: campocompend,
+                        cidade: campocidade,
+                        estado: campoestado,
+                        cep: campocep,
+                    };
+
+                    if (camposenha != camposenhaconf) {
+                        displayMessage("A confirmação da senha está errada.");
+                        return;
+                    }
+
+                    insertUsuario(usu);
+
+                    // Reexibe os administradores
+                    exibeUsuarios();
+
+                    // Limpa o formulario
+                    $("#form-compra")[0].reset();
+                });
+
+                // Intercepta o click do botão Alterar
+                $("#btnUpdate").click(function () {
+                    // Obtem os valores dos campos do formulário
+                    let campoemail = $("#inputEmail").val();
+                    if (campoemail == "") {
+                        displayMessage(
+                            "Selecione um usuário para ser alterado."
+                        );
+                        return;
+                    }
+                    let camponome = $("#inputNome").val();
+                    let campotelefone = $("#inputTelefone").val();
+                    let camposenha = $("#inputSenha").val();
+                    let camposenhaconf = $("#inputConfSenha").val();
+                    let campoendereco = $("#inputEndereco").val();
+                    let camponumend = $("#inputNumero").val();
+                    let campocompend = $("#inputComp").val();
+                    let campocidade = $("#inputCidade").val();
+                    let campoestado = $("#inputEstado").val();
+                    let campocep = $("#inputCEP").val();
+                    let campoSenha = $("#inputSenha").val();
+
+                    let usu = {
+                        nome: camponome,
+                        email: campoemail,
+                        telefone: campotelefone,
+                        senha: camposenha,
+                        endereco: campoendereco,
+                        numend: camponumend,
+                        compend: campocompend,
+                        cidade: campocidade,
+                        estado: campoestado,
+                        cep: campocep,
+                    };
+
+                    updateUsuario(campoemail, usu);
+
+                    // Reexibe os usuários
+                    exibeUsuarios();
+
+                    // Limpa o formulario
+                    $("#form-compra")[0].reset();
+                });
+
+                // Intercepta o click do botão Excluir
+                $("#btnDelete").click(function () {
+                    let campoemail = $("#inputEmail").val();
+                    if (campoemail == "") {
+                        displayMessage(
+                            "Selecione um usuário para ser excluído."
+                        );
+                        return;
+                    }
+                    deleteUsuario(campoemail);
+
+                    // Reexibe os usuários
+                    exibeUsuarios();
+
+                    // Limpa o formulario
+                    $("#form-compra")[0].reset();
+                });
+
+                // Intercepta o click do botão Listar Contatos
+                $("#btnClear").click(function () {
+                    $("#form-compra")[0].reset();
+                });
+
+                // Oculta a mensagem de aviso após alguns segundos
+                $("#msg").bind("DOMSubtreeModified", function () {
+                    window.setTimeout(function () {
+                        $(".alert")
+                            .fadeTo(500, 0)
+                            .slideUp(500, function () {
+                                $(this).remove();
+                            });
+                    }, 5000);
+                });
+
+                // Preenche o formulário quando o usuario clicar em uma linha da tabela
+                $("#grid-usuarios").on("click", "tr", function (e) {
+                    let linhaAdmin = this;
+                    colunas = linhaAdmin.querySelectorAll("td");
+
+                    $("#inputNome").val(colunas[0].innerText);
+                    $("#inputEmail").val(colunas[1].innerText);
+                    $("#inputTelefone").val(colunas[4].innerText);
+                    $("#inputSenha").val(colunas[3].innerText);
+                    $("#inputUsuario").val(colunas[2].innerText);
+                });
+
+                exibeUsuarios();
+
+                //testarLoginAdm();
+
+                function testarLoginAdm ()
+                {
+                    let tipoUsuarioLogado = " ";
+                
+                    if (sessionStorage.getItem('usuarioCorrente') != null )
+                    {
+                        tipoUsuarioLogado = JSON.parse(sessionStorage.getItem('usuarioCorrente')).tipo;
+                    }
+                
+                    if (sessionStorage.getItem('usuarioCorrente') != null )
+                    {
+                        if (tipoUsuarioLogado != "adm" ){
+                            alert("Você não tem acesso a essa página.");
+                            window.location = "/src/main/resources/front-end/loginAdm/LoginAdm.html";
+                        }
+                    } else {
+                        alert("Você não tem acesso a essa página.");
+                        window.location = "/src/main/resources/front-end/loginAdm/LoginAdm.html";
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

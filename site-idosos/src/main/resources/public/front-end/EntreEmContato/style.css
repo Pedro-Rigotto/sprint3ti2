@@ -1,0 +1,29 @@
+.text-contato
+{
+    font-size: 270%;
+    text-align: center;
+    margin-top: 5%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#voltar{
+    margin-left: 100px!important;
+    margin-top: 50px!important;
+}
+
+body {
+    background: #e0e5ec!important;
+  }
+
+  @media screen and (max-width:800px) {
+
+ .text-contato
+ {
+    font-size: 150%;
+    text-align: center;
+    margin-top: 5%;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 10%;
+ }
+
+ 
+   }
