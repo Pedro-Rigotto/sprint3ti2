@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VemkFilho - Criar conta</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/front-end/compra-manutenção-usuários/style.css">
+    <link rel="stylesheet" href="/front-end/template.css">
+    <!--/src/main/resources/public/front-end/compra-manutenção-usuários/style.css--
+        src/main/resources/public/front-end/template.css-->
+</head>
+
+<body onload="init()">
+    <header>
+        <div class="container-fluid cabecalho">
+            <div class="row">
+                <div class="col-6">
+                    <a href="/"> <img class="imagemprovisoria" src="/imagens/logo.png" alt=""> </a>
+                    
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="container">
+        <div class="row" id="titulo">
+            <div class="col-12">
+                <h1>Administração VemKFilho</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" id="botoesEscolhas">
+                <div class="row">
+                    <div class="col-4 botoesMenu">
+                        <a href="/admin/insert"><input type="button" class="btn btn-13" value="Criar usuários"></a>
+                        <a href="/admin/update"><input type="button" class="btn btn-13" value="Alterar usuários"></a>
+                        <a href="/admin/delete"><input type="button" class="btn btn-13" value="Deletar usuários"></a>
+                    </div>
+                    <div class="col-4 botoesMenu">
+                        <a href="/criartutorial/insert"><input type="button" class="btn btn-13" value="Criar tutoriais"></a>
+                        <a href="/criartutorial/update"><input type="button" class="btn btn-13" value="Alterar tutoriais"></a>
+                        <a href="/criartutorial/delete"><input type="button" class="btn btn-13" value="Deletar tutoriais"></a>
+                    </div>
+                    <div class="col-4 botoesMenu">
+                        <a href="/criarcategoria/insert"><input type="button" class="btn btn-13" value="Criar categorias"></a>
+                        <a href="/criarcategoria/update"><input type="button" class="btn btn-13" value="Alterar categorias"></a>
+                        <a href="/criarcategoria/delete"><input type="button" class="btn btn-13" value="Deletar categorias"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/front-end/compra-manutenção-usuários/app.js"></script>
+</body>
+
+</html>

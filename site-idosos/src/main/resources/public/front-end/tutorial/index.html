@@ -4,11 +4,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>TutoriTec - Tutorial</title>
+        <title>VemkFilho - Tutorial</title>
         <!-- CSS only -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="style.css" />
-        <link rel="stylesheet" href="/src/main/resources/front-end/template.css" />
+        <link rel="stylesheet" href="/front-end/tutorial/style.css" />
+        <link rel="stylesheet" href="/front-end/template.css" />
     </head>
 
     <body onload="init()">
@@ -16,10 +16,10 @@
             <div class="container-fluid cabecalho">
                 <div class="row">
                     <div class="col-6">
-                        <a href="/src/main/resources/front-end/inicio-login/inicio.html">
+                        <a href="/">
                             <img
                                 class="imagemprovisoria"
-                                src="/src/main/resources/imagens/logo.png"
+                                src="/imagens/logo.png"
                                 alt=""
                             /> <button type="button" class="btn btn-info">Voltar para a página inicial</button>
                         </a>
@@ -39,9 +39,10 @@
             <button onclick="goBack()" class="custom-btn btn-13" id="botaoVoltar" >Voltar</button>
             <div class="container" id="telaTutorial">
                 <!-- Código inserido via JavaScript -->
+                <TUTORIAL>
             </div>
             <div id="acontato">
-                <a class="Contato" href="/src/main/resources/front-end/EntreEmContato/contato.html">Entre em contato</a>
+                <a class="Contato" href="/contato">Entre em contato</a>
             </div>
             <div class="container" id="comentarios">
                 <div class="row">
@@ -76,6 +77,6 @@
         <footer class="container"></footer>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script src="app.js"></script>
+        <script src="/front-end/tutorial/app.js"></script>
     </body>
 </html>

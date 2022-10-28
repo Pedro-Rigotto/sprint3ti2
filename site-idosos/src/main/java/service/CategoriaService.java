@@ -60,15 +60,20 @@ public class CategoriaService {
             formInsert += "\t\t\t\t\t\t<p><h3>Criar categorias</h3></p>\n";
             formInsert += "\t\t\t\t\t  \n";
             formInsert += "\t\t\t\t\t  <div class=\"row\">\n";
-            formInsert += "\t\t\t\t\t\t<div class=\"col-sm-3\">\n";
+            formInsert += "\t\t\t\t\t\t<div class=\"col-sm-2\">\n";
             formInsert += "\t\t\t\t\t\t  <label for=\"inputId\">Id</label>\n";
             formInsert += "\t\t\t\t\t\t  <input type=\"text\" class=\"form-control \" id=\"inputId\" required name=\"id\"\n";
             formInsert += "\t\t\t\t\t\t\t  placeholder=\"Id\" autocomplete=\"off\" disabled>\n";
             formInsert += "\t\t\t\t\t\t</div>\n";
-            formInsert += "\t\t\t\t\t\t<div class=\"col-sm-9\">\n";
+            formInsert += "\t\t\t\t\t\t<div class=\"col-sm-5\">\n";
             formInsert += "\t\t\t\t\t\t  <label for=\"inputNome\">Nome (*)</label>\n";
             formInsert += "\t\t\t\t\t\t  <input type=\"text\" class=\"form-control \" id=\"inputNome\" required name=\"nome\"\n";
             formInsert += "\t\t\t\t\t\t\t  placeholder=\"Informe o nome da categoria\" autocomplete=\"off\">\n";
+            formInsert += "\t\t\t\t\t\t</div>\n";
+            formInsert += "\t\t\t\t\t\t<div class=\"col-sm-5\">\n";
+            formInsert += "\t\t\t\t\t\t  <label for=\"inputSupercat\">Supercategoria (*)</label>\n";
+            formInsert += "\t\t\t\t\t\t  <input type=\"text\" class=\"form-control \" id=\"inputSupercat\" required name=\"supercategoria\"\n";
+            formInsert += "\t\t\t\t\t\t\t  placeholder=\"Informe o nome da supercategoria\" autocomplete=\"off\">\n";
             formInsert += "\t\t\t\t\t\t</div>\n";
             formInsert += "\t\t\t\t\t  </div>\n";
             formInsert += "\n";
@@ -93,15 +98,20 @@ public class CategoriaService {
             formInsert += "\t\t\t\t\t\t<p><h3>Manutenção de categorias</h3></p>\n";
             formInsert += "\t\t\t\t\t  \n";
             formInsert += "\t\t\t\t\t  <div class=\"row\">\n";
-            formInsert += "\t\t\t\t\t\t<div class=\"col-sm-3\">\n";
+            formInsert += "\t\t\t\t\t\t<div class=\"col-sm-2\">\n";
             formInsert += "\t\t\t\t\t\t  <label for=\"inputId\">Id</label>\n";
             formInsert += "\t\t\t\t\t\t  <input type=\"text\" class=\"form-control \" id=\"inputId\" required name=\"id\"\n";
             formInsert += "\t\t\t\t\t\t\t  placeholder=\"Id\" autocomplete=\"off\">\n";
             formInsert += "\t\t\t\t\t\t</div>\n";
-            formInsert += "\t\t\t\t\t\t<div class=\"col-sm-9\">\n";
+            formInsert += "\t\t\t\t\t\t<div class=\"col-sm-5\">\n";
             formInsert += "\t\t\t\t\t\t  <label for=\"inputNome\">Nome (*)</label>\n";
             formInsert += "\t\t\t\t\t\t  <input type=\"text\" class=\"form-control \" id=\"inputNome\" required name=\"nome\"\n";
             formInsert += "\t\t\t\t\t\t\t  placeholder=\"Informe o nome da categoria\" autocomplete=\"off\">\n";
+            formInsert += "\t\t\t\t\t\t</div>\n";
+            formInsert += "\t\t\t\t\t\t<div class=\"col-sm-5\">\n";
+            formInsert += "\t\t\t\t\t\t  <label for=\"inputSupercat\">Supercategoria (*)</label>\n";
+            formInsert += "\t\t\t\t\t\t  <input type=\"text\" class=\"form-control \" id=\"inputSupercat\" required name=\"supercategoria\"\n";
+            formInsert += "\t\t\t\t\t\t\t  placeholder=\"Informe o nome da supercategoria\" autocomplete=\"off\">\n";
             formInsert += "\t\t\t\t\t\t</div>\n";
             formInsert += "\t\t\t\t\t  </div>\n";
             formInsert += "\n";
@@ -160,6 +170,7 @@ public class CategoriaService {
             formTabela += "<tr>";
             formTabela += "<td scope=\"row\">" + p.getId() + "</td>";
             formTabela += "<td>" + p.getNome() + "</td>";
+            formTabela += "<td>" + p.getSupercategoria() + "</td>";
             formTabela += "</tr>";
         }
         form = form.replaceFirst("<TABELA>", formTabela);
@@ -176,7 +187,8 @@ public class CategoriaService {
      */
     public Object insert(Request request, Response response) {
         String nome = request.queryParams("nome");
-        Categoria categoria = new Categoria(-1, nome);
+        String supercategoria = request.queryParams("supercategoria");
+        Categoria categoria = new Categoria(-1, nome, supercategoria);
         if (categoriaDAO.insert(categoria) == true) {
             response.status(201); // 201 Created
         } else {
@@ -199,7 +211,8 @@ public class CategoriaService {
     public Object update(Request request, Response response) {
         String nome = request.queryParams("nome");
         int id = Integer.parseInt(request.queryParams("id"));
-        Categoria categoria = new Categoria(id, nome);
+        String supercategoria = request.queryParams("supercategoria");
+        Categoria categoria = new Categoria(id, nome, supercategoria);
         if (categoriaDAO.update(categoria) == true) {
             response.status(201); // 201 Created
         } else {

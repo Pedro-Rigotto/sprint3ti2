@@ -8,6 +8,7 @@ package model;
 public class Categoria {
     private int id;
     private String nome;
+    private String supercategoria;
     
     public int getId() {
         return id;
@@ -21,10 +22,23 @@ public class Categoria {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public Categoria(int id, String nome) {
+    public String getSupercategoria() {
+        return supercategoria;
+    }
+    public void setSupercategoria(String supercategoria) {
+        this.supercategoria = supercategoria;
+    }
+    public Categoria(int id, String nome, String supercategoria) {
         super();
         this.id = id;
         this.nome = nome;
+        this.supercategoria = supercategoria;
+    }
+    public Categoria() {
+        super();
+        this.id = -1;
+        this.nome = "";
+        this.supercategoria = "";
     }
     
     @Override

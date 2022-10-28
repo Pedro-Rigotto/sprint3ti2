@@ -19,6 +19,7 @@ public class AdminService {
     private final int FORM_INSERT = 1;
     private final int FORM_UPDATE = 2;
     private final int FORM_DELETE = 3;
+    private final int FORM_SELECT = 4;
 
     public AdminService() {
         makeForm();
@@ -55,7 +56,7 @@ public class AdminService {
             String formInsert = "";
 
             formInsert += "<div class=\"col-sm-12\" id=\"formulario\">\n";
-            formInsert += "\t<form id=\"form-compra\" autocomplete=\"off\" action=\"/admin/insert\" method=\"post\">\n";
+            formInsert += "\t<form id=\"form-compra\" autocomplete=\"off\" action=\"/admin/insert/do\" method=\"post\">\n";
             formInsert += "\t\t<div class=\"row\">\n";
             formInsert += "\t\t\t<div class=\"col-12 col-md-3\"></div>\n";
             formInsert += "\t\t\t<div class=\"col-12 col-md-6\">\n";
@@ -345,6 +346,19 @@ public class AdminService {
 
             form = form.replaceFirst("<FORMULARIO>", formInsert);
             form = form.replaceFirst("<TITULO>", "Excluir usuário");
+        } else if (tipo == FORM_SELECT) {
+            nomeArquivo = "src/main/resources/public/front-end/compra-manutenção-usuários/menu.html";
+            form = "";
+            try {
+                Scanner entrada = new Scanner(new File(nomeArquivo));
+
+                while (entrada.hasNext()) {
+                    form += (entrada.nextLine() + "\n");
+                }
+                entrada.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         String formTabela = "";
@@ -503,6 +517,21 @@ public class AdminService {
      */
     public Object getAdminsDelete(Request request, Response response) {
         makeForm(FORM_DELETE);
+        response.header("Content-Type", "text/html");
+        response.header("Content-Encoding", "UTF-8");
+        return form;
+    }
+
+    /**
+     * Metodo que exibe a página de menu de administradores;
+     * 
+     * @param request  parametros de requisição da pagina;
+     * @param response parametros de resposta da pagina;
+     * @return retorna a pagina pronta para atualizar no front-end e a mensagem do
+     *         status;
+     */
+    public Object getMenu(Request request, Response response) {
+        makeForm(FORM_SELECT);
         response.header("Content-Type", "text/html");
         response.header("Content-Encoding", "UTF-8");
         return form;

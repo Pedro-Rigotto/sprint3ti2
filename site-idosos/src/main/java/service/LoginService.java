@@ -7,6 +7,7 @@ import dao.UsuarioDAO;
 import spark.Request;
 import spark.Response;
 import java.io.File;
+//import org.json;
 
 public class LoginService {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -42,7 +43,7 @@ public class LoginService {
      * @param response
      * @return
      */
-    public Object get(Request request, Response response) {
+    /*public Object get(Request request, Response response) {
         String id = (request.params(":id"));
         Usuario usuario = usuarioDAO.get(Integer.parseInt(id));
         if (usuario != null) {
@@ -58,7 +59,7 @@ public class LoginService {
         }
 
         return form;
-    }
+    }*/
 
     /**
      * @param request
@@ -66,12 +67,12 @@ public class LoginService {
      * @return
      */
     public Object loga(Request request, Response response) {
-        int id = Integer.parseInt(request.params(":id"));
-        Usuario usuario = usuarioDAO.get(id);
+        String nomeUsuario = (request.params(":username"));
+        Usuario usuario = usuarioDAO.getUsuario(nomeUsuario);
         if (!usuario.equals(null)) {
             if (request.params(":password") == usuario.getPassword()) {
                 response.status(200);
-                request.session().attribute("username");
+                request.session().attribute("usuarioCorrente");
                 request.session().attribute("username", usuario.getUsername());
                 request.session().attribute("tipoUsuario", usuario.getTipoUsuario());
             } else {

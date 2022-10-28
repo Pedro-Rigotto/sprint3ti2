@@ -1,7 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS mydb;
 
 CREATE TABLE IF NOT EXISTS mydb."usuario" (
-  "username" VARCHAR(16) NOT NULL,
+  "username" VARCHAR(16) NOT NULL UNIQUE,
   "nome" VARCHAR(255) NULL,
   "email" VARCHAR(255) NULL,
   "password" VARCHAR(32) NOT NULL,
@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS mydb."usuario" (
 CREATE TABLE IF NOT EXISTS "mydb"."categoria" (
   "id_categoria" SERIAL NOT NULL,
   "nome" VARCHAR(255) NOT NULL,
+  "supercategoria" VARCHAR(255) NOT NULL,
   PRIMARY KEY ("id_categoria"));
 
 CREATE TABLE IF NOT EXISTS "mydb"."tutorial" (

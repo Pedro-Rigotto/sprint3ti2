@@ -39,9 +39,10 @@ public class CategoriaDAO extends DAO {
 	public boolean insert(Categoria categoria) {
 		boolean status = false;
 		try {
-			String sql = "INSERT INTO mydb.categoria (nome) "
+			String sql = "INSERT INTO mydb.categoria (nome, supercategoria) "
 					+ "VALUES ('"
-					+ categoria.getNome() + "');";
+					+ categoria.getNome() + "', '" 
+					+ categoria.getSupercategoria() + "');";
 			PreparedStatement st = conexao.prepareStatement(sql);
 			st.executeUpdate();
 			st.close();
@@ -67,7 +68,7 @@ public class CategoriaDAO extends DAO {
 			String sql = "SELECT * FROM mydb.categoria WHERE id_categoria=" + id;
 			ResultSet rs = st.executeQuery(sql);
 			if (rs.next()) {
-				categoria = new Categoria(rs.getInt("id_categoria"), rs.getString("nome"));
+				categoria = new Categoria(rs.getInt("id_categoria"), rs.getString("nome"), rs.getString("supercategoria"));
 			}
 			st.close();
 		} catch (Exception e) {
@@ -93,7 +94,7 @@ public class CategoriaDAO extends DAO {
 					+ ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
 			ResultSet rs = st.executeQuery(sql);
 			while (rs.next()) {
-				Categoria p = new Categoria(rs.getInt("id_categoria"), rs.getString("nome"));
+				Categoria p = new Categoria(rs.getInt("id_categoria"), rs.getString("nome"), rs.getString("supercategoria"));
 				categoria.add(p);
 			}
 			st.close();
@@ -137,6 +138,73 @@ public class CategoriaDAO extends DAO {
 	}
 
 	/**
+	 * Metodo que traz a lista de categorias no banco ordernado por supercategoria ,
+	 * requisição via SQL
+	 * 
+	 * @return List<Categoria> categorias
+	 * @throws Erro generalizado de acordo com requisição.
+	 */
+	public List<Categoria> getOrderBySupercategoria() {
+		return get("supercategoria");
+	}
+
+	/**
+	 * Metodo que traz a lista de categorias no banco de uma certa supercategoria, requisição via SQL
+	 * 
+	 * @param supercategoria referencia qual é a supercategoria desejada
+	 * @param orderBy refencia qual é a ordem que deve retornar a lista de
+	 *                categorias.
+	 * @return List<Categoria> categorias
+	 * @throws Erro generalizado de acordo com requisição.
+	 */
+	public List<Categoria> getSupercategoria(String supercategoria, String orderBy) {
+		List<Categoria> categoria = new ArrayList<Categoria>();
+
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			String sql = "SELECT * FROM mydb.categoria"
+					+ " WHERE supercategoria='" + supercategoria + "'"
+					+ ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Categoria p = new Categoria(rs.getInt("id_categoria"), rs.getString("nome"), rs.getString("supercategoria"));
+				categoria.add(p);
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return categoria;
+	}
+
+	/**
+	 * Metodo que traz a lista de supercategorias no banco, requisição via SQL
+	 * 
+	 * @param orderBy refencia qual é a ordem que deve retornar a lista de
+	 *                categorias.
+	 * @return List<String> supercategorias
+	 * @throws Erro generalizado de acordo com requisição.
+	 */
+	public List<String> getListaSupercategoria(String orderBy) {
+		List<String> supercategorias = new ArrayList<String>();
+
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			String sql = "SELECT supercategoria FROM mydb.categoria GROUP BY supercategoria"
+					+ ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String p = rs.getString("supercategoria");
+				supercategorias.add(p);
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return supercategorias;
+	}
+
+	/**
 	 * Metodo que faz a atualização da Categoria no banco;
 	 * 
 	 * @param categoria Object:Categoria que será atualizado no banco;
@@ -149,6 +217,7 @@ public class CategoriaDAO extends DAO {
 		boolean status = false;
 		try {
 			String sql = "UPDATE mydb.categoria SET nome = '" + categoria.getNome()
+					+ "', supercategoria = '" + categoria.getSupercategoria()
 					+ "' WHERE id_categoria = " + categoria.getId();
 			PreparedStatement st = conexao.prepareStatement(sql);
 			st.executeUpdate();

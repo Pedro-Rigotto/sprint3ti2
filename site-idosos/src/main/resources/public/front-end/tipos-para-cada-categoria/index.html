@@ -3,17 +3,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TutoriTec - Tutoriais premium</title>
+    <title>VemkFilho - Tutoriais premium</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="/src/main/resources/front-end/template.css">
+    <link rel="stylesheet" href="/front-end/tipos-para-cada-categoria/style.css">
+    <link rel="stylesheet" href="/front-end/template.css">
 </head>
 <body onload="init()">
     <header>
         <div class="container-fluid cabecalho">
             <div class="row">
                 <div class="col-6">
-                    <a href="/src/main/resources/front-end/inicio-login/inicio.html"> <img class="imagemprovisoria" src="/src/main/resources/imagens/logo.png" alt=""> <button type="button" class="btn btn-info">Voltar para a página inicial</button></a>
+                    <a href="/"> <img class="imagemprovisoria" src="/imagens/logo.png" alt=""> <button type="button" class="btn btn-info">Voltar para a página inicial</button></a>
                 </div>
 
                 <div class="col-6" id="nomeUsuario">
@@ -33,15 +33,14 @@
             </div>
         </div>
         <div>
-            <button onclick="goBack()" class="custom-btn btn-13">Voltar</button>
-            
+            <button onclick="goBack()" class="custom-btn btn-13" style="margin-bottom: 10px">Voltar</button>
         </div>
-        <div id="btn-area" class="row"></div>
+        <div id="botoes" class="row"><BOTOES></div>
 
         <div id="btn-infos" class="row">
             
             <div class="col-12 divcontato">
-                <a href="/src/main/resources/front-end/EntreEmContato/contato.html" class="Contato"><h2>Entre em Contato</h2></a>
+                <a href="/contato" class="Contato"><h2>Entre em Contato</h2></a>
             </div>
         </div>
             
@@ -49,7 +48,7 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="app.js"></script>
+    <script src="/front-end/tipos-para-cada-categoria/app.js"></script>
     
 </body>
 </html>

@@ -200,6 +200,35 @@ public class TutorialDAO extends DAO {
 	}
 
 	/**
+	 * Metodo que retorna a lista de tutoriais de uma certa categoria.
+	 * 
+	 * @param idCategoria id da categoria a ser pesquisada
+	 * @return List<Tutorial> tutoriais
+	 * @throws Erro generalizado de acordo com requisição.
+	 */
+	public List<Tutorial> getCategoria(int idCategoria) {
+		List<Tutorial> tutoriais = new ArrayList<Tutorial>();
+
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			String sql = "SELECT * FROM mydb.tutorial "
+					+ "WHERE id_categoria=" + idCategoria;
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Tutorial p = new Tutorial(rs.getInt("id_tutorial"), rs.getString("texto"), rs.getString("titulo"),
+						rs.getInt("autor"), rs.getDate("data_criacao").toLocalDate(), rs.getInt("publicado"),
+						rs.getString("link_youtube"), rs.getInt("id_categoria"));
+				tutoriais.add(p);
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return tutoriais;
+
+	}
+
+	/**
 	 * Metodo que faz a atualização do Tutorial no banco;
 	 * 
 	 * @param Tutorial Object:Tutorial que será atualizado no banco;

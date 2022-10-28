@@ -247,4 +247,61 @@ public class UsuarioDAO extends DAO {
         }
         return status;
     }
+
+    /**
+     * Metodo que faz a verificação do usuario e senha no banco;
+     * 
+     * @param nome  username que será verificado;
+     * @param senha senha que será verificada;
+     * @return id: Caso exista no banco de dados; -1 Caso não exista
+     *       
+     * @throws SQLException Caso ocorra um problema durante a requisição no banco de
+     *                      dados, será lançada a exceção;
+     */
+    public int efetuarLogin(String nome, String senha) {
+        try {
+            // 1 passo criar o comando sql
+            String cmdsql = "select * from mydb.usuario where username =? and password =?";
+            // 2 passo- Organizar o cmdsql e executalo
+            PreparedStatement stmt = conexao.prepareStatement(cmdsql);
+            stmt.setString(1, nome);
+            stmt.setString(2, senha);
+            // 3 passo- executa o comando
+            ResultSet rs = stmt.executeQuery();
+            // 4 passo- verificar Qual tipo foi retornado
+            if (rs.first()) {
+                return rs.getInt("id_hash");
+            } else {
+                return -1;
+            }
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+
+    /**
+     * retorna um usuario buscando pelo nome de usuário;
+     *
+     * @param username chave de busca
+     * @return Usuario pesquisado do tipo Object:Usuario
+     * @throws Exception Erro generalizado de acordo com requisição.
+     */
+    public Usuario getUsuario(String username) {
+        Usuario usuario = null;
+
+        try {
+            Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String sql = "SELECT * FROM mydb.usuario WHERE username='" + username + "'";
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                usuario = new Usuario(rs.getString("username"), rs.getString("nome"), rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getInt("tipo_usuario"), rs.getString("telefone"), rs.getInt("id_hash"));
+            }
+            st.close();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return usuario;
+    }
 }

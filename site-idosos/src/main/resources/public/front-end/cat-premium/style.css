@@ -49,11 +49,11 @@ button {
    font-size: 25px;
 }
 
-#btn-area {
+#botoes {
     padding: 50px;
 }
 
-#btn-area .btn-13{
+#botoes .btn-13{
     min-width: 500px;
     max-height: 100px;
     margin: 10px;
@@ -111,19 +111,19 @@ a.Contato{
 }
 
 @media screen and (max-width: 767px) {
-    #btn-area .btn-13{
+    #botoes .btn-13{
         min-width: 300px;
         max-height: 100px;
         margin: 10px;
     }
 
-    #btn-area {
+    #botoes {
         padding: 0;
     }
 } 
 
 @media screen and (max-width: 340px) {
-    #btn-area .btn-13{
+    #botoes .btn-13{
         min-width: 180px;
         max-height: 100px;
         margin: 10px;

@@ -59,6 +59,10 @@ function init() {
      colocarSair();
 }
 
+function goBack() {
+    window.history.back()
+}
+
 function colocarSair(){
     let tipo = JSON.parse(sessionStorage.getItem('usuarioCorrente')).tipo;
     let nomeUsu = "";
@@ -86,7 +90,7 @@ function logoutUser () {
 }
 
 
-testarLoginUser()
+//testarLoginUser()
 
 function testarLoginUser ()
 {

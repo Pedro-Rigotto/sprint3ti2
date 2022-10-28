@@ -104,7 +104,7 @@ function logoutUser () {
     window.location = LOGIN_URL;
 }
 
-testarLoginUser();
+//testarLoginUser();
 colocarSair();
 
 function colocarSair(){
