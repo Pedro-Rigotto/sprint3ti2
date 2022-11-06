@@ -79,6 +79,9 @@ public class ListaCategoriaService {
         makeForm(FORM_CATEGORIA, supercategoria);
 	    response.header("Content-Type", "text/html");
 	    response.header("Content-Encoding", "UTF-8");
+        if(request.session().attribute("logado") != null) {
+            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+        }
 		return form;
     }
 
@@ -93,6 +96,9 @@ public class ListaCategoriaService {
         makeForm(FORM_SUPERCATEGORIA, "");
 	    response.header("Content-Type", "text/html");
 	    response.header("Content-Encoding", "UTF-8");
+        if(request.session().attribute("logado") != null) {
+            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+        }
 		return form;
     }
 }

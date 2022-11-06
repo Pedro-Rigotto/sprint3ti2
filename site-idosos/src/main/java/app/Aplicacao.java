@@ -28,9 +28,9 @@ public class Aplicacao {
 
         post("/criarusuario/insert", (request, response) -> contaService.insert(request, response));
 
-        get("/loginUsuario",(request, response)-> loginService.getCriar(request, response));
+        get("/loginusuario",(request, response)-> loginService.getCriar(request, response));
         
-        post("/loginAutentica",(request, response)-> loginService.loga(request, response));
+        post("/loginautentica",(request, response)-> loginService.loga(request, response));
 
         get("/admin", (request, response) -> adminService.getMenu(request, response));
 
@@ -81,5 +81,7 @@ public class Aplicacao {
         get("/listatutoriais/:id", (request, response) -> listaTutorialService.getTutoriais(request, response));
 
         get("/tutorial/:id", (request, response) -> pagTutorialService.getTutorial(request, response));
+
+        get("/logout", (request, response) -> pagInicialService.desloga(request, response));
     }
 }

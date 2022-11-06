@@ -71,6 +71,7 @@ let id;
 window.onload = () => {
     let params = new URLSearchParams(window.location.search);
     id = params.get('id');
+    
     carregaTutorial();
 }
 
@@ -135,7 +136,7 @@ function carregaTutorial () {
 }
 
 function goBack() {
-    window.history.back()
+    window.history.back();
 }
 
 

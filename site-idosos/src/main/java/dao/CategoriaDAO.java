@@ -44,6 +44,7 @@ public class CategoriaDAO extends DAO {
 					+ categoria.getNome() + "', '" 
 					+ categoria.getSupercategoria() + "');";
 			PreparedStatement st = conexao.prepareStatement(sql);
+
 			st.executeUpdate();
 			st.close();
 			status = true;

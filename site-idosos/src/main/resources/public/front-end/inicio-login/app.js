@@ -57,6 +57,18 @@ const dadosIniciais = {
 
 // Inicializa o usuarioCorrente e banco de dados de usuários da aplicação de Login
 function initLoginApp () {
+    // teste do que fica no session storage
+    /*usuarioCorrente.login = "user";
+    usuarioCorrente.nome = "user";
+    usuarioCorrente.cidade = "user";
+    usuarioCorrente.compend = "user";
+    usuarioCorrente.numend = "user";
+    usuarioCorrente.endereco = "user";
+    usuarioCorrente.estado = "user";
+    usuarioCorrente.cep = "user";
+    usuarioCorrente.tipo = "user";
+    alert(JSON.stringify(usuarioCorrente));*/
+
     // PARTE 1 - INICIALIZA USUARIOCORRENTE A PARTIR DE DADOS NO LOCAL STORAGE, CASO EXISTA
     usuarioCorrenteJSON = sessionStorage.getItem('usuarioCorrente');
     if (usuarioCorrenteJSON) {

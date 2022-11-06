@@ -196,6 +196,9 @@ public class CategoriaService {
         }
 
         makeform();
+        if(request.session().attribute("logado") != null) {
+            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+        }
         return form;
     }
 
@@ -220,6 +223,9 @@ public class CategoriaService {
         }
 
         makeform(FORM_UPDATE);
+        if(request.session().attribute("logado") != null) {
+            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+        }
         return form;
     }
 
@@ -241,6 +247,9 @@ public class CategoriaService {
         }
 
         makeform(FORM_DELETE);
+        if(request.session().attribute("logado") != null) {
+            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+        }
         return form;
     }
 
@@ -256,6 +265,9 @@ public class CategoriaService {
     public Object pagInsert(Request request, Response response) {
 
         makeform(FORM_INSERT);
+        if(request.session().attribute("logado") != null) {
+            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+        }
         return form;
     }
 
@@ -271,6 +283,9 @@ public class CategoriaService {
     public Object pagUpdate(Request request, Response response) {
 
         makeform(FORM_UPDATE);
+        if(request.session().attribute("logado") != null) {
+            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+        }
         return form;
     }
 
@@ -286,6 +301,9 @@ public class CategoriaService {
     public Object pagDelete(Request request, Response response) {
 
         makeform(FORM_DELETE);
+        if(request.session().attribute("logado") != null) {
+            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+        }
         return form;
     }
 }

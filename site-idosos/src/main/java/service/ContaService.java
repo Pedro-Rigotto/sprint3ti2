@@ -58,6 +58,9 @@ public class ContaService {
         }
 
         makeForm();
+        if(request.session().attribute("logado") != null) {
+            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+        }
         return form.replaceFirst("<div display=\"none\" id=\"mensagemDeAviso\"></div>", "<div class=\"alert alert-warning\">" + resp + "</div>");
     }
 
@@ -65,6 +68,9 @@ public class ContaService {
         makeForm();
 	    response.header("Content-Type", "text/html");
 	    response.header("Content-Encoding", "UTF-8");
+        if(request.session().attribute("logado") != null) {
+            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+        }
 		return form;
     }
 }

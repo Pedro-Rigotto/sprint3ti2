@@ -407,7 +407,22 @@ public class AdminService {
             response.status(404); // 404 Not found
         }
 
-        makeForm();
+        if(request.session().attribute("logado") != null) {
+            if(request.session().attribute("tipo").toString().equals("1")) {
+                makeForm();
+                response.header("Content-Type", "text/html");
+                response.header("Content-Encoding", "UTF-8");
+                if(request.session().attribute("logado") != null) {
+                    form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+                }
+            } else {
+                response.redirect("/loginusuario");
+                return "";
+            }
+        }   else {
+            response.redirect("/loginusuario");
+            return "";
+        }
         return form.replaceFirst("<div display=\"none\" id=\"mensagemDeAviso\"></div>",
                 "<div class=\"alert alert-warning\">" + resp + "</div>");
     }
@@ -442,7 +457,22 @@ public class AdminService {
             response.status(404); // 404 Not found
         }
 
-        makeForm(FORM_UPDATE);
+        if(request.session().attribute("logado") != null) {
+            if(request.session().attribute("tipo").toString().equals("1")) {
+                makeForm(FORM_UPDATE);
+                response.header("Content-Type", "text/html");
+                response.header("Content-Encoding", "UTF-8");
+                if(request.session().attribute("logado") != null) {
+                    form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+                }
+            } else {
+                response.redirect("/loginusuario");
+                return "";
+            }
+        }   else {
+            response.redirect("/loginusuario");
+            return "";
+        }
         return form.replaceFirst("<div display=\"none\" id=\"mensagemDeAviso\"></div>",
                 "<div class=\"alert alert-warning\">" + resp + "</div>");
     }
@@ -469,7 +499,22 @@ public class AdminService {
             response.status(404); // 404 Not found
         }
 
-        makeForm(FORM_DELETE);
+        if(request.session().attribute("logado") != null) {
+            if(request.session().attribute("tipo").toString().equals("1")) {
+                makeForm(FORM_DELETE);
+                response.header("Content-Type", "text/html");
+                response.header("Content-Encoding", "UTF-8");
+                if(request.session().attribute("logado") != null) {
+                    form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+                }
+            } else {
+                response.redirect("/loginusuario");
+                return "";
+            }
+        }   else {
+            response.redirect("/loginusuario");
+            return "";
+        }
         return form.replaceFirst("<div display=\"none\" id=\"mensagemDeAviso\"></div>",
                 "<div class=\"alert alert-warning\">" + resp + "</div>");
     }
@@ -484,9 +529,22 @@ public class AdminService {
      *         status;
      */
     public Object getAdmins(Request request, Response response) {
-        makeForm(FORM_INSERT);
-        response.header("Content-Type", "text/html");
-        response.header("Content-Encoding", "UTF-8");
+        if(request.session().attribute("logado") != null) {
+            if(request.session().attribute("tipo").toString().equals("1")) {
+                makeForm(FORM_INSERT);
+                response.header("Content-Type", "text/html");
+                response.header("Content-Encoding", "UTF-8");
+                if(request.session().attribute("logado") != null) {
+                    form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+                }
+            } else {
+                response.redirect("/loginusuario");
+                return "";
+            }
+        }   else {
+            response.redirect("/loginusuario");
+            return "";
+        }
         return form;
     }
 
@@ -500,9 +558,23 @@ public class AdminService {
      *         status;
      */
     public Object getAdminsUpdate(Request request, Response response) {
-        makeForm(FORM_UPDATE);
-        response.header("Content-Type", "text/html");
-        response.header("Content-Encoding", "UTF-8");
+        if(request.session().attribute("logado") != null) {
+            if(request.session().attribute("tipo").toString().equals("1")) {
+                makeForm(FORM_UPDATE);
+                response.header("Content-Type", "text/html");
+                response.header("Content-Encoding", "UTF-8");
+                if(request.session().attribute("logado") != null) {
+                    form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+                }
+            } else {
+                response.redirect("/loginusuario");
+                return "";
+            }
+        }   else {
+            response.redirect("/loginusuario");
+            return "";
+        }
+        
         return form;
     }
 
@@ -516,9 +588,23 @@ public class AdminService {
      *         status;
      */
     public Object getAdminsDelete(Request request, Response response) {
-        makeForm(FORM_DELETE);
-        response.header("Content-Type", "text/html");
-        response.header("Content-Encoding", "UTF-8");
+        if(request.session().attribute("logado") != null) {
+            if(request.session().attribute("tipo").toString().equals("1")) {
+                makeForm(FORM_DELETE);
+                response.header("Content-Type", "text/html");
+                response.header("Content-Encoding", "UTF-8");
+                if(request.session().attribute("logado") != null) {
+                    form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+                }
+            } else {
+                response.redirect("/loginusuario");
+                return "";
+            }
+        }   else {
+            response.redirect("/loginusuario");
+            return "";
+        }
+        
         return form;
     }
 
@@ -531,9 +617,23 @@ public class AdminService {
      *         status;
      */
     public Object getMenu(Request request, Response response) {
-        makeForm(FORM_SELECT);
-        response.header("Content-Type", "text/html");
-        response.header("Content-Encoding", "UTF-8");
+        if(request.session().attribute("logado") != null) {
+            if(request.session().attribute("tipo").toString().equals("1")) {
+                makeForm(FORM_SELECT);
+                response.header("Content-Type", "text/html");
+                response.header("Content-Encoding", "UTF-8");
+                if(request.session().attribute("logado") != null) {
+                    form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+                }
+            } else {
+                response.redirect("/loginusuario");
+                return "";
+            }
+        }   else {
+            response.redirect("/loginusuario");
+            return "";
+        }
+        
         return form;
     }
 }

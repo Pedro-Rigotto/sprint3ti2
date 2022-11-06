@@ -65,6 +65,7 @@ function goBack() {
 
 function colocarSair(){
     let tipo = JSON.parse(sessionStorage.getItem('usuarioCorrente')).tipo;
+    
     let nomeUsu = "";
 
     let textoNome;

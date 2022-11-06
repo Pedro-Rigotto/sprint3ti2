@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TutoriTec - Login</title>
-    <link rel="stylesheet" href="/front-end/inicio-login/style2.css">
+    <title>VemKFilho - Login</title>
+    <link rel="stylesheet" href="/front-end/template.css">
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/front-end/inicio-login/style.css">
 </head>
 
+<body>
     <main>
         <header>
             <div class="container-fluid cabecalho">
@@ -28,7 +29,7 @@
                 <div id="login-row" class="row justify-content-center align-items-center">
                     <div id="login-column" class="col-md-6">
                         <div id="login-box" class="col-md-12">
-                            <form id="login-form" class="form" method="post" onsubmit="loginUser (this)" action="/loginAutentica" >
+                            <!--<form id="login-form" class="form" method="post" action="/loginautentica" >
                                 <h3 class="text-center">Login</h3>
                                 <div class="form-group">
                                     <label for="username">Nome de usuário:</label><br>
@@ -42,7 +43,17 @@
                                     <p>Não possui uma conta? <a class="cliqueaqui" href="/front-end/compra-manutenção-usuários/compra.html" style="font-size: 1em;">Clique aqui</a> para criar
                                     <input  type="submit" name="submit" class="btn btn-13" value="Entrar"></p>
                                 </div>
-
+                            
+                            </form>
+                        -->
+                            <form action="/loginautentica" method="post">
+                                <h3 class="text-center" style="margin-top: 30px">Login</h3>
+                                <label for="username">Nome de usuário:</label><br>
+                                <input type="text" name="username" id="username" required class="form-control"><br>
+                                <label for="password">Senha:</label><br>
+                                <input type="password" name="password" id="password" required class="form-control">
+                                <p>Não possui uma conta? <a class="cliqueaqui" href="/front-end/compra-manutenção-usuários/compra.html" style="font-size: 1em;">Clique aqui</a> para criar</p>
+                                <div style="text-align: right"><input type="submit" class="btn btn-13" value="Entrar"></div>
                             </form>
                         </div>
                     </div>
@@ -95,4 +106,4 @@
 </body>
 
 </html>
-<body>
+

@@ -46,4 +46,19 @@ public class PagInicialService {
 	    response.header("Content-Encoding", "UTF-8");
 		return form;
     }
+
+    /**
+     * Faz o logout do usuario
+     * @param request  parametros de requisição da pagina;
+     * @param response parametros de resposta da pagina;
+     * @return retorna a pagina pronta para atualizar no front-end e a mensagem do
+     *         status;
+     */
+    public Object desloga(Request request, Response response) {
+        request.session().removeAttribute("logado");
+        makeForm();
+	    response.header("Content-Type", "text/html");
+	    response.header("Content-Encoding", "UTF-8");
+		return form;
+    }
 }

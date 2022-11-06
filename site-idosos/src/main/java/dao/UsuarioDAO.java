@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Classe que faz os comandos SQL da classe Usuario
  * 
- * @author Pedro R , André M
+ * @author Pedro R , André M,Henrique
  *
  */
 public class UsuarioDAO extends DAO {
@@ -290,13 +290,16 @@ public class UsuarioDAO extends DAO {
         Usuario usuario = null;
 
         try {
-            Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "SELECT * FROM mydb.usuario WHERE username='" + username + "'";
-            ResultSet rs = st.executeQuery(sql);
+            String sql = "SELECT * FROM mydb.usuario WHERE username=?";
+            PreparedStatement st = conexao.prepareStatement(sql);
+    		st.setString(1, username);
+            ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 usuario = new Usuario(rs.getString("username"), rs.getString("nome"), rs.getString("email"),
                         rs.getString("password"),
                         rs.getInt("tipo_usuario"), rs.getString("telefone"), rs.getInt("id_hash"));
+            } else {
+                usuario = new Usuario();
             }
             st.close();
         } catch (Exception e) {

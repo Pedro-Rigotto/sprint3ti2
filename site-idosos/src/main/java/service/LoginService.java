@@ -1,19 +1,19 @@
 package service;
 
-import static spark.Spark.*;
 import java.util.Scanner;
 import model.Usuario;
 import dao.UsuarioDAO;
 import spark.Request;
 import spark.Response;
 import java.io.File;
-//import org.json;
 
+/**
+ * Efetua o Login no site
+ * @author Pedro R ,Andre M, Henrique
+ */
 public class LoginService {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
     private String form;
-    private final int FORM_DETAIL = 2;
-    private final int FORM_ORDERBY_USERNAME = 2;
 
     public LoginService() {
         makeForm();
@@ -62,20 +62,43 @@ public class LoginService {
     }*/
 
     /**
-     * @param request
-     * @param response
-     * @return
+     * Faz o login do usuário 
+     * @param request  parametros de requisição da pagina;
+     * @param response parametros de resposta da pagina;
+     * @return retorna a pagina pronta para atualizar no front-end e a mensagem do
+     *         status;
      */
     public Object loga(Request request, Response response) {
-        String nomeUsuario = (request.params(":username"));
+        String nomeUsuario = (request.queryParams("username"));
         Usuario usuario = usuarioDAO.getUsuario(nomeUsuario);
-        if (!usuario.equals(null)) {
-            if (request.params(":password") == usuario.getPassword()) {
+        if (!usuario.equals(new Usuario())) {
+            if (request.queryParams("password").equals(usuario.getPassword())) {
+                request.session(true);
                 response.status(200);
-                request.session().attribute("usuarioCorrente");
-                request.session().attribute("username", usuario.getUsername());
-                request.session().attribute("tipoUsuario", usuario.getTipoUsuario());
+                /*String strJson = "{\"login\":\"" + usuario.getUsername() + "\",\"nome\":\"" 
+                    + usuario.getNome() +  "\",\"id\":\"" + usuario.getId() +  "\",\"telefone\":\"" 
+                    + usuario.getTelefone() + "\",\"tipo\":\"user\"}";
+                request.session().attribute("usuarioCorrente", strJson);*/
+                request.session().attribute("usuario", usuario.getUsername());
+                request.session().attribute("nome", usuario.getNome());
+                request.session().attribute("id", usuario.getId());
+                request.session().attribute("telefone", usuario.getTelefone());
+                request.session().attribute("logado", true);
+                request.session().attribute("tipo", usuario.getTipoUsuario());
+                //System.out.println(request.session().attribute("usuarioCorrente").toString());
+                //System.out.println(strJson);
+
+                //System.out.println(request.session().attribute("usuarioCorrente").toString());
+                if(usuario.getTipoUsuario() == 0) {
+                    response.redirect("/listacategorias");
+                } else if(usuario.getTipoUsuario() == 1) {
+                    response.redirect("/admin");
+                } else {
+                    response.redirect("/logout");
+                }
             } else {
+                //System.out.println("Senha incorreta!");
+                //System.out.println(request.queryParams("password") + " " + usuario.getPassword());
                 response.status(404);
                 String resp = "Senha incorreta!";
                 form.replaceFirst("<input type=\"hidden\" id=\"msg\" "
@@ -83,6 +106,7 @@ public class LoginService {
                         "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"" + resp + "\">");
             }
         } else {
+            //System.out.println("Usuário não foi encontrado!");
             response.status(404);
             String resp = "Usuario " + usuario.getUsername() + " não encontrado";
             form.replaceFirst("<input type=\"hidden\" id=\"msg\" "
@@ -94,7 +118,13 @@ public class LoginService {
     }
     
 
-
+    /**
+     * Mostra a página de login do usuário
+     * @param request  parametros de requisição da pagina;
+     * @param response parametros de resposta da pagina;
+     * @return retorna a pagina pronta para atualizar no front-end e a mensagem do
+     *         status;
+     */
     public Object getCriar(Request request, Response response) {
         makeForm();
         response.header("Content-Type", "text/html");
