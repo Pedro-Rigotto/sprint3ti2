@@ -42,11 +42,13 @@ public class UsuarioDAO extends DAO {
         boolean status = false;
         try {
             String sql = "INSERT INTO mydb.usuario (username, nome, email, password, tipo_usuario, telefone) "
-                    + "VALUES ('" + usuario.getUsername() + "', '" + usuario.getNome() + "', '" + usuario.getEmail()
-                    + "', '"
-                    + usuario.getPassword() + "', " + usuario.getTipoUsuario()
-                    + ", '" + usuario.getTelefone() + "');";
+                    + "VALUES (?, ?, ?, ?, " + usuario.getTipoUsuario() + ", ?);";
             PreparedStatement st = conexao.prepareStatement(sql);
+            st.setString(1, usuario.getUsername());
+            st.setString(2, usuario.getNome());
+            st.setString(3, usuario.getEmail());
+            st.setString(4, usuario.getPassword());
+            st.setString(5, usuario.getTelefone());
             st.executeUpdate();
             st.close();
             status = true;
@@ -57,7 +59,7 @@ public class UsuarioDAO extends DAO {
     }
 
     /**
-     * retorna todos os usuarios do banco;
+     * Retorna o usuário com a id desejada;
      *
      * @param id chave de busca
      * @return Usuario pesquisado do tipo Object:Usuario
@@ -210,13 +212,14 @@ public class UsuarioDAO extends DAO {
     public boolean update(Usuario usuario) {
         boolean status = false;
         try {
-            String sql = "UPDATE mydb.usuario SET username = '" + usuario.getUsername() + "', "
-                    + "nome = '" + usuario.getNome() + "', "
-                    + "email = '" + usuario.getEmail() + "', "
-                    + "password = '" + usuario.getPassword() + "',"
-                    + "tipo_usuario = " + usuario.getTipoUsuario() + ","
-                    + "telefone = '" + usuario.getTelefone() + "' WHERE id_hash = " + usuario.getId();
+            String sql = "UPDATE mydb.usuario SET username=?, nome=?, email=?, password=?, tipo_usuario=" 
+            + usuario.getTipoUsuario() + ", telefone=? WHERE id_hash = " + usuario.getId();
             PreparedStatement st = conexao.prepareStatement(sql);
+            st.setString(1, usuario.getUsername());
+            st.setString(2, usuario.getNome());
+            st.setString(3, usuario.getEmail());
+            st.setString(4, usuario.getPassword());
+            st.setString(5, usuario.getTelefone());
             st.executeUpdate();
             st.close();
             status = true;

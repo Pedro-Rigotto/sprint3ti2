@@ -40,10 +40,11 @@ public class ComentarioDAO extends DAO {
 	public boolean insert(Comentario comentario) {
 		boolean status = false;
 		try {
-			String sql = "INSERT INTO mydb.comentario (descricao, publicado, autor, tutorial, dataPublicacao) "
-					+ "VALUES ('" + comentario.getDescricao() + "', "
-					+ comentario.getPublicado() + ", " + comentario.getAutor() + "," + comentario.getTutorial();
+			String sql = "INSERT INTO mydb.comentario (descricao, publicado, autor, tutorial, data_publicacao) "
+					+ "VALUES (?, "
+					+ comentario.getPublicado() + ", " + comentario.getAutor() + ", " + comentario.getTutorial() + ", ?)";
 			PreparedStatement st = conexao.prepareStatement(sql);
+			st.setString(1, comentario.getDescricao());
 			st.setDate(2, Date.valueOf(comentario.getDataPublicacao()));
 			st.executeUpdate();
 			st.close();
@@ -55,7 +56,7 @@ public class ComentarioDAO extends DAO {
 	}
 
 	/**
-	 * retorna todos os comentarios do banco;
+	 * Retorna um comentário com a id desejada;
 	 *
 	 * @param id chave de busca
 	 * @return Comentario pesquisado do tipo Object:Comentario
@@ -66,11 +67,11 @@ public class ComentarioDAO extends DAO {
 
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			String sql = "SELECT * FROM mydb.comentario WHERE id=" + id;
+			String sql = "SELECT * FROM mydb.comentario WHERE comentario_id=" + id;
 			ResultSet rs = st.executeQuery(sql);
 			if (rs.next()) {
-				comentario = new Comentario(rs.getInt("id"), rs.getString("descricao"),
-						rs.getDate("datapublicacao").toLocalDate(), rs.getInt("publicado"),
+				comentario = new Comentario(rs.getInt("comentario_id"), rs.getString("descricao"),
+						rs.getDate("data_publicacao").toLocalDate(), rs.getInt("publicado"),
 						rs.getInt("autor"), rs.getInt("tutorial"));
 			}
 			st.close();
@@ -78,6 +79,33 @@ public class ComentarioDAO extends DAO {
 			System.err.println(e.getMessage());
 		}
 		return comentario;
+	}
+
+	/**
+	 * Retorna uma lista de todos os comentários do tutorial com a id desejada;
+	 *
+	 * @param id chave de busca
+	 * @return Lista de comentarios pesquisados do tipo List<Comentario>
+	 * @throws Exception Erro generalizado de acordo com requisição.
+	 */
+	public List<Comentario> getTutorial(int id) {
+		List<Comentario> comentarios = new ArrayList<Comentario>();
+
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			String sql = "SELECT * FROM mydb.comentario WHERE tutorial=" + id;
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Comentario comentario = new Comentario(rs.getInt("comentario_id"), rs.getString("descricao"),
+						rs.getDate("data_publicacao").toLocalDate(), rs.getInt("publicado"),
+						rs.getInt("autor"), rs.getInt("tutorial"));
+				comentarios.add(comentario);
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return comentarios;
 	}
 
 	/**
@@ -97,8 +125,8 @@ public class ComentarioDAO extends DAO {
 					+ ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
 			ResultSet rs = st.executeQuery(sql);
 			while (rs.next()) {
-				Comentario p = new Comentario(rs.getInt("id"), rs.getString("descricao"),
-						rs.getDate("dataPublicacao").toLocalDate(), rs.getInt("publicado"),
+				Comentario p = new Comentario(rs.getInt("comentario_id"), rs.getString("descricao"),
+						rs.getDate("data_publicacao").toLocalDate(), rs.getInt("publicado"),
 						rs.getInt("autor"), rs.getInt("tutorial"));
 				comentarios.add(p);
 			}
@@ -165,13 +193,14 @@ public class ComentarioDAO extends DAO {
 	public boolean update(Comentario comentario) {
 		boolean status = false;
 		try {
-			String sql = "UPDATE comentario SET descricao = '" + comentario.getDescricao() + "', "
-					+ "datapublicacao = ?, "
+			String sql = "UPDATE mydb.comentario SET descricao = ?, "
+					+ "data_publicacao = ?, "
 					+ "publicado = " + comentario.getPublicado() + ", "
 					+ "autor = " + comentario.getAutor() + ","
 					+ "tutorial = " + comentario.getTutorial()
 					+ " WHERE comentario_id = " + comentario.getId();
 			PreparedStatement st = conexao.prepareStatement(sql);
+			st.setString(1, comentario.getDescricao());
 			st.setDate(2, Date.valueOf(comentario.getDataPublicacao()));
 			st.executeUpdate();
 			st.close();

@@ -15,6 +15,7 @@ public class Aplicacao {
     private static ListaCategoriaService listaCategoriaService = new ListaCategoriaService();
     private static ListaTutorialService listaTutorialService = new ListaTutorialService();
     private static PagTutorialService pagTutorialService = new PagTutorialService();
+    private static ComentarioService comentarioService = new ComentarioService();
     /**
      * Programa que roda o servidor do projeto, e chama as funções que mostram as páginas e fazem os requerimentos POST.
      *@author Pedro R, André M, Henrique
@@ -83,5 +84,17 @@ public class Aplicacao {
         get("/tutorial/:id", (request, response) -> pagTutorialService.getTutorial(request, response));
 
         get("/logout", (request, response) -> pagInicialService.desloga(request, response));
+
+        get("/addcomentario/:idtutorial", (request, response) -> comentarioService.criaComentario(request, response));
+
+        get("/editarcomentario/:id", (request, response) -> comentarioService.editaComentario(request, response));
+
+        post("/inserircomentario", (request, response) -> comentarioService.insereComentario(request, response));
+
+        post("/mandareditcomentario/:id", (request, response) -> comentarioService.mandaEditarComentario(request, response));
+
+        get("/deletarcomentario/:id", (request, response) -> comentarioService.mandaDeletarComentario(request, response));
+
+        get("/chatbot", (request, response) -> pagInicialService.mostraChatbot(request, response));
     }
 }

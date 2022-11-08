@@ -419,7 +419,7 @@ public class AdminService {
                 response.redirect("/loginusuario");
                 return "";
             }
-        }   else {
+        } else {
             response.redirect("/loginusuario");
             return "";
         }
@@ -469,7 +469,7 @@ public class AdminService {
                 response.redirect("/loginusuario");
                 return "";
             }
-        }   else {
+        } else {
             response.redirect("/loginusuario");
             return "";
         }
@@ -511,7 +511,7 @@ public class AdminService {
                 response.redirect("/loginusuario");
                 return "";
             }
-        }   else {
+        } else {
             response.redirect("/loginusuario");
             return "";
         }
@@ -541,7 +541,7 @@ public class AdminService {
                 response.redirect("/loginusuario");
                 return "";
             }
-        }   else {
+        } else {
             response.redirect("/loginusuario");
             return "";
         }
@@ -570,7 +570,7 @@ public class AdminService {
                 response.redirect("/loginusuario");
                 return "";
             }
-        }   else {
+        } else {
             response.redirect("/loginusuario");
             return "";
         }

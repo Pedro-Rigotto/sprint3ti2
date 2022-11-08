@@ -40,12 +40,14 @@ public class TutorialDAO extends DAO {
 		boolean status = false;
 		try {
 			String sql = "INSERT INTO mydb.tutorial (texto, titulo, autor, data_criacao, publicado, link_youtube, id_categoria) "
-					+ "VALUES ('" + tutorial.getTexto() + "', '"
-					+ tutorial.getTitulo() + "', " + tutorial.getAutor() + ", ?, "
-					+ tutorial.getPublicado() + ", '" + tutorial.getVideo() + "', "
+					+ "VALUES (?, ?, " + tutorial.getAutor() + ", ?, "
+					+ tutorial.getPublicado() + ", ?, "
 					+ tutorial.getCategoria() + ") ;";
 			PreparedStatement st = conexao.prepareStatement(sql);
-			st.setDate(1, Date.valueOf(tutorial.getDataCriacao()));
+			st.setString(1, tutorial.getTexto());
+			st.setString(2, tutorial.getTitulo());
+			st.setDate(3, Date.valueOf(tutorial.getDataCriacao()));
+			st.setString(4, tutorial.getVideo());
 			st.executeUpdate();
 			st.close();
 			status = true;
@@ -240,17 +242,19 @@ public class TutorialDAO extends DAO {
 	public boolean update(Tutorial tutorial) {
 		boolean status = false;
 		try {
-			String sql = "UPDATE mydb.tutorial SET texto = '" + tutorial.getTexto() + "', "
-					+ "titulo = '" + tutorial.getTitulo() + "', "
+			String sql = "UPDATE mydb.tutorial SET texto = ?, "
+					+ "titulo = ?, "
 					+ "autor = " + tutorial.getAutor() + ", "
 					+ "data_criacao = ? ,"
 					+ "publicado = " + tutorial.getPublicado() + ", "
-					+ "link_youtube = '" + tutorial.getVideo() + "', "
+					+ "link_youtube = ?, "
 					+ "id_categoria = " + tutorial.getCategoria()
 					+ " WHERE id_tutorial = " + tutorial.getId();
-			System.out.println(sql);
 			PreparedStatement st = conexao.prepareStatement(sql);
-			st.setDate(1, Date.valueOf(tutorial.getDataCriacao()));
+			st.setString(1, tutorial.getTexto());
+			st.setString(2, tutorial.getTitulo());
+			st.setDate(3, Date.valueOf(tutorial.getDataCriacao()));
+			st.setString(4, tutorial.getVideo());
 			st.executeUpdate();
 			st.close();
 			status = true;

@@ -40,10 +40,10 @@ public class CategoriaDAO extends DAO {
 		boolean status = false;
 		try {
 			String sql = "INSERT INTO mydb.categoria (nome, supercategoria) "
-					+ "VALUES ('"
-					+ categoria.getNome() + "', '" 
-					+ categoria.getSupercategoria() + "');";
+					+ "VALUES (?, ?);";
 			PreparedStatement st = conexao.prepareStatement(sql);
+			st.setString(1, categoria.getNome());
+			st.setString(2, categoria.getSupercategoria());
 
 			st.executeUpdate();
 			st.close();
@@ -217,10 +217,10 @@ public class CategoriaDAO extends DAO {
 	public boolean update(Categoria categoria) {
 		boolean status = false;
 		try {
-			String sql = "UPDATE mydb.categoria SET nome = '" + categoria.getNome()
-					+ "', supercategoria = '" + categoria.getSupercategoria()
-					+ "' WHERE id_categoria = " + categoria.getId();
+			String sql = "UPDATE mydb.categoria SET nome = ?, supercategoria = ? WHERE id_categoria = " + categoria.getId();
 			PreparedStatement st = conexao.prepareStatement(sql);
+			st.setString(1, categoria.getNome());
+			st.setString(2, categoria.getSupercategoria());
 			st.executeUpdate();
 			st.close();
 			status = true;

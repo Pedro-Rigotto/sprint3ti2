@@ -1,0 +1,56 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/front-end/EntreEmContato/style.css">
+    
+    <link rel="stylesheet" href="/front-end/template.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <title>VemkFilho - Entre em contato</title>
+
+</head>
+<body>
+    <header>
+        <div class="container-fluid cabecalho">
+            
+            <div class="row">
+                
+                <div class="col-6">
+                    <a href="/"><img class="imagemprovisoria" src="/imagens/logo.png" alt=""> <button type="button" class="btn btn-info">Voltar para a página inicial</button></a>
+                </div>
+
+                <div class="col-6" id="nomeUsuario">
+                    <div id="insertSair">
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </header>
+    <main>
+        <div class="row">
+            <div class="col-12">
+                <button onclick="goBack()" class="custom-btn btn-13" id="voltar">Voltar</button>
+                <h1 class="text-contato">
+                    Chatbot para ajuda
+                </h1>
+
+                <div style="text-align:center">
+                    <div style="display:inline-block">
+                        <iframe
+                            allow="microphone;"
+                            width="350"
+                            height="430"
+                            src="https://console.dialogflow.com/api-client/demo/embedded/6c2f8d57-6deb-4609-a918-b4b936a70726">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/front-end/EntreEmContato/app.js"></script>
+</body>
+</html>
