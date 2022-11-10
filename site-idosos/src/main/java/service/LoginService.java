@@ -6,6 +6,7 @@ import dao.UsuarioDAO;
 import spark.Request;
 import spark.Response;
 import java.io.File;
+import dao.DAO;
 
 /**
  * Efetua o Login no site
@@ -72,38 +73,42 @@ public class LoginService {
         String nomeUsuario = (request.queryParams("username"));
         Usuario usuario = usuarioDAO.getUsuario(nomeUsuario);
         if (!usuario.equals(new Usuario())) {
-            if (request.queryParams("password").equals(usuario.getPassword())) {
-                request.session(true);
-                response.status(200);
-                /*String strJson = "{\"login\":\"" + usuario.getUsername() + "\",\"nome\":\"" 
-                    + usuario.getNome() +  "\",\"id\":\"" + usuario.getId() +  "\",\"telefone\":\"" 
-                    + usuario.getTelefone() + "\",\"tipo\":\"user\"}";
-                request.session().attribute("usuarioCorrente", strJson);*/
-                request.session().attribute("usuario", usuario.getUsername());
-                request.session().attribute("nome", usuario.getNome());
-                request.session().attribute("id", usuario.getId());
-                request.session().attribute("telefone", usuario.getTelefone());
-                request.session().attribute("logado", true);
-                request.session().attribute("tipo", usuario.getTipoUsuario());
-                //System.out.println(request.session().attribute("usuarioCorrente").toString());
-                //System.out.println(strJson);
+            try {
+                if (DAO.toMD5(request.queryParams("password")).equals(usuario.getPassword())) {
+                    request.session(true);
+                    response.status(200);
+                    /*String strJson = "{\"login\":\"" + usuario.getUsername() + "\",\"nome\":\"" 
+                        + usuario.getNome() +  "\",\"id\":\"" + usuario.getId() +  "\",\"telefone\":\"" 
+                        + usuario.getTelefone() + "\",\"tipo\":\"user\"}";
+                    request.session().attribute("usuarioCorrente", strJson);*/
+                    request.session().attribute("usuario", usuario.getUsername());
+                    request.session().attribute("nome", usuario.getNome());
+                    request.session().attribute("id", usuario.getId());
+                    request.session().attribute("telefone", usuario.getTelefone());
+                    request.session().attribute("logado", true);
+                    request.session().attribute("tipo", usuario.getTipoUsuario());
+                    //System.out.println(request.session().attribute("usuarioCorrente").toString());
+                    //System.out.println(strJson);
 
-                //System.out.println(request.session().attribute("usuarioCorrente").toString());
-                if(usuario.getTipoUsuario() == 0) {
-                    response.redirect("/listacategorias");
-                } else if(usuario.getTipoUsuario() == 1) {
-                    response.redirect("/admin");
+                    //System.out.println(request.session().attribute("usuarioCorrente").toString());
+                    if(usuario.getTipoUsuario() == 0) {
+                        response.redirect("/listacategorias");
+                    } else if(usuario.getTipoUsuario() == 1) {
+                        response.redirect("/admin");
+                    } else {
+                        response.redirect("/logout");
+                    }
                 } else {
-                    response.redirect("/logout");
+                    //System.out.println("Senha incorreta!");
+                    //System.out.println(request.queryParams("password") + " " + usuario.getPassword());
+                    response.status(404);
+                    String resp = "Senha incorreta!";
+                    form.replaceFirst("<input type=\"hidden\" id=\"msg\" "
+                            + "name=\"msg\" value=\"\">",
+                            "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"" + resp + "\">");
                 }
-            } else {
-                //System.out.println("Senha incorreta!");
-                //System.out.println(request.queryParams("password") + " " + usuario.getPassword());
-                response.status(404);
-                String resp = "Senha incorreta!";
-                form.replaceFirst("<input type=\"hidden\" id=\"msg\" "
-                        + "name=\"msg\" value=\"\">",
-                        "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"" + resp + "\">");
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
             }
         } else {
             //System.out.println("Usuário não foi encontrado!");

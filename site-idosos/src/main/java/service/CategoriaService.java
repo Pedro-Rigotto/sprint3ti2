@@ -142,9 +142,6 @@ public class CategoriaService {
             formInsert += "\t\t\t\t\t\t\t  placeholder=\"Id\" autocomplete=\"off\">\n";
             formInsert += "\t\t\t\t\t\t</div>\n";
             formInsert += "\t\t\t\t\t\t<div class=\"col-sm-9\">\n";
-            formInsert += "\t\t\t\t\t\t  <label for=\"inputNome\">Nome (*)</label>\n";
-            formInsert += "\t\t\t\t\t\t  <input type=\"text\" class=\"form-control \" id=\"inputNome\" required name=\"nome\"\n";
-            formInsert += "\t\t\t\t\t\t\t  placeholder=\"Informe o nome da categoria\" autocomplete=\"off\">\n";
             formInsert += "\t\t\t\t\t\t</div>\n";
             formInsert += "\t\t\t\t\t  </div>\n";
             formInsert += "\n";
@@ -263,10 +260,17 @@ public class CategoriaService {
      *                   arquivo;
      */
     public Object pagInsert(Request request, Response response) {
-
-        makeform(FORM_INSERT);
         if(request.session().attribute("logado") != null) {
-            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+            if(request.session().attribute("tipo").toString().equals("1")) {
+                makeform(FORM_INSERT);
+                form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+            } else {
+                response.redirect("/loginusuario");
+                return "";
+            }
+        } else {
+            response.redirect("/loginusuario");
+            return "";
         }
         return form;
     }
@@ -281,10 +285,17 @@ public class CategoriaService {
      *                   arquivo;
      */
     public Object pagUpdate(Request request, Response response) {
-
-        makeform(FORM_UPDATE);
         if(request.session().attribute("logado") != null) {
-            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+            if(request.session().attribute("tipo").toString().equals("1")) {
+                makeform(FORM_UPDATE);
+                form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+            } else {
+                response.redirect("/loginusuario");
+                return "";
+            }
+        } else {
+            response.redirect("/loginusuario");
+            return "";
         }
         return form;
     }
@@ -299,10 +310,17 @@ public class CategoriaService {
      *                   arquivo;
      */
     public Object pagDelete(Request request, Response response) {
-
-        makeform(FORM_DELETE);
         if(request.session().attribute("logado") != null) {
-            form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+            if(request.session().attribute("tipo").toString().equals("1")) {
+                makeform(FORM_DELETE);
+                form = form.replaceFirst("<div id=\"insertSair\">", "<div id=\"insertSair\"><p> " + request.session().attribute("nome") + " | <a href=\"/logout\">Sair</a></p>");
+            } else {
+                response.redirect("/loginusuario");
+                return "";
+            }
+        } else {
+            response.redirect("/loginusuario");
+            return "";
         }
         return form;
     }

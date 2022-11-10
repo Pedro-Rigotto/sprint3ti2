@@ -47,7 +47,11 @@ public class UsuarioDAO extends DAO {
             st.setString(1, usuario.getUsername());
             st.setString(2, usuario.getNome());
             st.setString(3, usuario.getEmail());
-            st.setString(4, usuario.getPassword());
+            try {
+                st.setString(4, DAO.toMD5(usuario.getPassword()));
+            }  catch (Exception u) {
+                throw new RuntimeException(u);
+            }
             st.setString(5, usuario.getTelefone());
             st.executeUpdate();
             st.close();
@@ -218,7 +222,11 @@ public class UsuarioDAO extends DAO {
             st.setString(1, usuario.getUsername());
             st.setString(2, usuario.getNome());
             st.setString(3, usuario.getEmail());
-            st.setString(4, usuario.getPassword());
+            try {
+                st.setString(4, DAO.toMD5(usuario.getPassword()));
+            }  catch (Exception u) {
+                throw new RuntimeException(u);
+            }
             st.setString(5, usuario.getTelefone());
             st.executeUpdate();
             st.close();
@@ -268,7 +276,11 @@ public class UsuarioDAO extends DAO {
             // 2 passo- Organizar o cmdsql e executalo
             PreparedStatement stmt = conexao.prepareStatement(cmdsql);
             stmt.setString(1, nome);
-            stmt.setString(2, senha);
+            try {
+                stmt.setString(2, DAO.toMD5(senha));
+            }  catch (Exception u) {
+                throw new RuntimeException(u);
+            }
             // 3 passo- executa o comando
             ResultSet rs = stmt.executeQuery();
             // 4 passo- verificar Qual tipo foi retornado

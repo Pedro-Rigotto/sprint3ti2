@@ -1,5 +1,7 @@
 package dao;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.sql.*;
 
 /**
@@ -67,4 +69,18 @@ public class DAO {
         }
         return status;
     }
+
+    /**
+     * Função que recebe a senha e transforma em MD5.
+     * @param senha
+     * @return A senha em MD5
+     * @throws Exception
+     */
+    public static String toMD5(String senha) throws Exception {
+		MessageDigest m=MessageDigest.getInstance("MD5");
+		m.update(senha.getBytes(),0, senha.length());
+		return new BigInteger(1,m.digest()).toString(16);
+	}
+
 }
+

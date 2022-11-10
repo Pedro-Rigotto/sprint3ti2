@@ -251,11 +251,13 @@ COPY mydb.tutorial (id_tutorial, texto, titulo, autor, data_criacao, publicado, 
 --
 
 COPY mydb.usuario (username, nome, email, password, tipo_usuario, telefone, id_hash) FROM stdin;
-admin	admin	admin@admin.com	admin	1	1234       	1
-777	777	777@7	777	0	777        	4
-3	3	3@3	3	1	3          	5
-33	33	33@33	33	0	33         	3
-1	João da Silva	1@1	1	0	1          	2
+x	x	x@x	9dd4e461268c8034f5c8564e155c67a6	0	x          	7
+z	z	z@z	fbade9e36a3f36d3d676c1b808451dd7	0	z          	8
+admin	admin	admin@admin.com	21232f297a57a5a743894a0e4a801fc3	1	1234       	1
+1	João da Silva	1@1	c4ca4238a0b923820dcc509a6f75849b	0	1          	2
+33	33	33@33	182be0c5cdcd5072bb1864cdee4d3d6e	0	33         	3
+777	777	777@7	f1c1592588411002af340cbaedd6fc33	0	777        	4
+3	3	3@3	eccbc87e4b5ce2fe28308fd9f2a7baf3	1	3          	5
 \.
 
 
@@ -263,28 +265,28 @@ admin	admin	admin@admin.com	admin	1	1234       	1
 -- Name: categoria_id_categoria_seq; Type: SEQUENCE SET; Schema: mydb; Owner: ti2cc
 --
 
-SELECT pg_catalog.setval('mydb.categoria_id_categoria_seq', 4, true);
+SELECT pg_catalog.setval('mydb.categoria_id_categoria_seq', 6, true);
 
 
 --
 -- Name: comentario_comentario_id_seq; Type: SEQUENCE SET; Schema: mydb; Owner: ti2cc
 --
 
-SELECT pg_catalog.setval('mydb.comentario_comentario_id_seq', 7, true);
+SELECT pg_catalog.setval('mydb.comentario_comentario_id_seq', 8, true);
 
 
 --
 -- Name: tutorial_id_tutorial_seq; Type: SEQUENCE SET; Schema: mydb; Owner: ti2cc
 --
 
-SELECT pg_catalog.setval('mydb.tutorial_id_tutorial_seq', 6, true);
+SELECT pg_catalog.setval('mydb.tutorial_id_tutorial_seq', 9, true);
 
 
 --
 -- Name: usuario_id_hash_seq; Type: SEQUENCE SET; Schema: mydb; Owner: ti2cc
 --
 
-SELECT pg_catalog.setval('mydb.usuario_id_hash_seq', 5, true);
+SELECT pg_catalog.setval('mydb.usuario_id_hash_seq', 8, true);
 
 
 --
